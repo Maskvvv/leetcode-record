@@ -35,10 +35,6 @@ package leetcode.editor.cn;
 // Related Topics 树 深度优先搜索 动态规划 二叉树 👍 375 👎 0
 
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-
 //Java：监控二叉树
 public class P968BinaryTreeCameras{
     public static void main(String[] args) {
@@ -61,12 +57,12 @@ public class P968BinaryTreeCameras{
  *     }
  * }
  */
-//class Solution {
-//    public int minCameraCover(TreeNode root) {
-//        Deque<TreeNode> queue = new ArrayDeque<>();
-//
-//    }
-//}
+class Solution {
+    //public int minCameraCover(TreeNode root) {
+    //    Deque<TreeNode> queue = new ArrayDeque<>();
+    //
+    //}
+}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
