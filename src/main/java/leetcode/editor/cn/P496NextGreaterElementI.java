@@ -47,9 +47,10 @@ package leetcode.editor.cn;
 // Related Topics 栈 数组 哈希表 单调栈 👍 677 👎 0
 
 
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
 
 //Java：下一个更大元素 I
 public class P496NextGreaterElementI{
@@ -60,21 +61,20 @@ public class P496NextGreaterElementI{
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-            Stack<Integer> stack = new Stack<>();
+            Deque<Integer> stack = new LinkedList<>();
             Map<Integer, Integer> map = new HashMap<>();
             for (int i = 0; i < nums2.length; i++) {
-                if (!stack.isEmpty() && stack.peek() > nums2[i]) {
-                    map.put(nums2[i], stack.peek());
+                while (!stack.isEmpty() && stack.peek() < nums2[i]) {
+                    map.put(stack.pop(), nums2[i]);
                 }
                 stack.push(nums2[i]);
             }
 
-            int[] res = new int[nums1.length];
             for (int i = 0; i < nums1.length; i++) {
-                res[i] = map.getOrDefault(nums1[i], -1);
+                nums1[i] = map.getOrDefault(nums1[i], -1);
             }
-            return res;
 
+            return nums1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
