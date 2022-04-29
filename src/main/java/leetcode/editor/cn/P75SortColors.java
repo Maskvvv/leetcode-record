@@ -57,18 +57,21 @@ class Solution {
 
         int n = nums.length;
 
-        int zero = 0;
-        for (int i = zero; i < n; i++) {
-            if (nums[i] == 0) {
-                swap(nums, i, zero++);
-
-            }
-        }
-
-        int one = zero;
-        for (int i = one; i < n; i++) {
+        int p0 = 0, p1 = 0;
+        for (int i = 0; i < n; i++) {
             if (nums[i] == 1) {
-                swap(nums, i, one++);
+                swap(nums, i, p1);
+                p1++;
+
+            } else if (nums[i] == 0) {
+                swap(nums, i, p0);
+
+                // 当 p0指针 和 p1指针 不在一起时，交换0会将原来排好序的1交换到i上，所以需要将他换回 p1 的位置
+                if (p0 < p1) {
+                    swap(nums, i, p1);
+                }
+                p1++;
+                p0++;
 
             }
         }
