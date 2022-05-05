@@ -47,9 +47,6 @@ package leetcode.editor.cn;
 // Related Topics 数组 回溯 矩阵 👍 1280 👎 0
 
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 //Java：单词搜索
 public class P79WordSearch {
     public static void main(String[] args) {
@@ -62,46 +59,55 @@ public class P79WordSearch {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        Deque<Character> path = new ArrayDeque<>();
+
+        char[] wordArray;
+        int rows;
+        int cols;
+        int n;
+        int[][] DIRECTIONS = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        boolean[][] visited;
+
 
         public boolean exist(char[][] board, String word) {
 
-            char[] wordArray = word.toCharArray();
+            wordArray = word.toCharArray();
+            rows = board.length;
+            cols = board[0].length;
+            n = word.length();
+            visited = new boolean[rows][cols];
 
-
-            return backtracking(board, wordArray, 0, 0);
-
-        }
-
-        public Boolean backtracking(char[][] board, char[] wordArray, int x, int y) {
-
-
-            if (path.size() == wordArray.length) {
-                return true;
-            }
-
-            boolean right = false;
-            boolean down = false;
-
-            for (int i = x; i < board.length; i++) {
-                for (int j = y; j < board[0].length; j++) {
-
-                    if (board[x][y] != wordArray[path.size() + 1]) {
-                        return false;
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (backtracking(i, j, 0, board)) {
+                        return true;
                     }
-
-                    path.addLast(board[i][j]);
-                    right = backtracking(board, wordArray, x + 1, y);
-                    down = backtracking(board, wordArray, x, y + 1);
-                    path.removeLast();
-
-
                 }
             }
 
-            return right ? right : down;
+            return false;
 
+        }
 
+        public boolean backtracking(int x, int y, int start, char[][] board) {
+            if (start == n - 1) {
+                return board[x][y] == wordArray[start];
+            }
+
+            if (board[x][y] == wordArray[start]) {
+                visited[x][y] = true;
+                for (int[] direction : DIRECTIONS) {
+                    int newX = x + direction[0];
+                    int newY = y + direction[1];
+                    if (newX >= 0 && newY >= 0 && newX < rows && newY < cols && !visited[newX][newY]) {
+                        if (backtracking(newX, newY, start + 1, board)) {
+                            return true;
+                        }
+                    }
+
+                }
+                visited[x][y] = false;
+            }
+            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
