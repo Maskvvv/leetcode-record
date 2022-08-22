@@ -44,6 +44,8 @@ package leetcode.editor.cn;
 // Related Topics 树 深度优先搜索 广度优先搜索 二叉树 👍 843 👎 0
 
 
+import leetcode.editor.cn.model.TreeNode;
+
 //Java：路径总和
 public class P112PathSum{
     public static void main(String[] args) {

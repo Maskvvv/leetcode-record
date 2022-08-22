@@ -32,6 +32,8 @@ package leetcode.editor.cn;
 // Related Topics 栈 递归 链表 双指针 👍 1380 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+
 //Java：回文链表
 public class P234PalindromeLinkedList {
     public static void main(String[] args) {

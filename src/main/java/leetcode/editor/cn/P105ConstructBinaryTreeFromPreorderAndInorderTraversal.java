@@ -34,6 +34,8 @@ package leetcode.editor.cn;
 // Related Topics 树 数组 哈希表 分治 二叉树 👍 1566 👎 0
 
 
+import leetcode.editor.cn.model.TreeNode;
+
 import java.util.HashMap;
 import java.util.Map;
 

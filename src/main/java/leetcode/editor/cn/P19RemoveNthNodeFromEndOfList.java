@@ -41,19 +41,16 @@ package leetcode.editor.cn;
 // Related Topics 链表 双指针 👍 1885 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+import leetcode.editor.cn.model.ListNodeFactory;
+
+import javax.swing.plaf.SliderUI;
+
 //Java：删除链表的倒数第 N 个结点
 public class P19RemoveNthNodeFromEndOfList {
     public static void main(String[] args) {
         Solution solution = new P19RemoveNthNodeFromEndOfList().new Solution();
-        ListNode head = new ListNode();
-
-        int[] ints = {1, 2, 3, 4, 5};
-        for (int i = ints.length - 1; i >= 0; i--) {
-            ListNode listNode = new ListNode(ints[i], head.next);
-            head.next = listNode;
-        }
-
-        solution.removeNthFromEnd(head, 2);
+        solution.removeNthFromEnd(ListNodeFactory.build(new int[]{1}), 1);
         // TO TEST
     }
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -70,51 +67,26 @@ public class P19RemoveNthNodeFromEndOfList {
      */
     class Solution {
         public ListNode removeNthFromEnd(ListNode head, int n) {
-            ListNode fast = new ListNode(), slow = new ListNode();
+            ListNode fast = new ListNode();
             fast.next = head;
-            slow.next = head;
-            ListNode res = slow;
+            ListNode slow = fast;
+            ListNode res = fast;
 
             for (int i = 0; i <= n; i++) {
                 fast = fast.next;
             }
 
             while (fast != null) {
-                slow = slow.next;
                 fast = fast.next;
+                slow = slow.next;
             }
 
             slow.next = slow.next.next;
 
             return res.next;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            return "ListNode{" +
-                    "val=" + val +
-                    ", next=" + next +
-                    '}';
-        }
-    }
 
 }

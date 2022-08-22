@@ -57,6 +57,8 @@ package leetcode.editor.cn;
 // Related Topics 哈希表 链表 双指针 👍 1558 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+
 //Java：环形链表 II
 public class P142LinkedListCycleIi {
     public static void main(String[] args) {

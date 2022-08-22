@@ -85,6 +85,8 @@ package leetcode.editor.cn;
 // Related Topics 哈希表 链表 双指针 👍 1681 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+
 //Java：相交链表
 public class P160IntersectionOfTwoLinkedLists {
     public static void main(String[] args) {

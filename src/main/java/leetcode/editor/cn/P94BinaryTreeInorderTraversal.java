@@ -39,6 +39,8 @@ package leetcode.editor.cn;
 // Related Topics 栈 树 深度优先搜索 二叉树 👍 1406 👎 0
 
 
+import leetcode.editor.cn.model.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 

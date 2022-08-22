@@ -43,6 +43,8 @@ package leetcode.editor.cn;
 // Related Topics 树 深度优先搜索 二叉树 👍 1731 👎 0
 
 
+import leetcode.editor.cn.model.TreeNode;
+
 //Java：二叉树的最近公共祖先
 public class P236LowestCommonAncestorOfABinaryTree {
     public static void main(String[] args) {

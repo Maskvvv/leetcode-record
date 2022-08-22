@@ -37,6 +37,8 @@ package leetcode.editor.cn;
 // Related Topics 树 深度优先搜索 二叉搜索树 二叉树 👍 1549 👎 0
 
 
+import leetcode.editor.cn.model.TreeNode;
+
 import java.util.Deque;
 import java.util.LinkedList;
 

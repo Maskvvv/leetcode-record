@@ -42,6 +42,8 @@ package leetcode.editor.cn;
 // Related Topics 递归 链表 👍 2499 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+
 //Java：反转链表
 public class P206ReverseLinkedList {
     public static void main(String[] args) {

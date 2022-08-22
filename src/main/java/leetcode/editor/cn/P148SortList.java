@@ -42,6 +42,8 @@ package leetcode.editor.cn;
 // Related Topics 链表 双指针 分治 排序 归并排序 👍 1590 👎 0
 
 
+import leetcode.editor.cn.model.ListNode;
+
 //Java：排序链表
 public class P148SortList {
     public static void main(String[] args) {
