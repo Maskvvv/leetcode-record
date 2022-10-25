@@ -43,38 +43,29 @@ public class P5LongestPalindromicSubstring {
             int n = s.length();
             if (n < 2) return s;
 
-            int maxLength = 0;
+            int maxLength = 1;
             int startIndex = 0;
+            int endIndex = 1;
 
-            for (int i = 0; i < n ; i++) {
-                int left = i - 1;
-                int right = i + 1;
-                int currentLength = 1;
+            boolean[][] dp = new boolean[n][n];
 
-                while (left >= 0 && s.charAt(left) == s.charAt(i)) {
-                    left--;
-                    currentLength++;
-                }
+            for (int r = 1; r < n ; r++) {
+                for (int l = 0; l < r; l++) {
+                    if (s.charAt(l) == s.charAt(r) && (r - l <= 2 || dp[l + 1][r - 1])) {
+                        dp[l][r] = true;
 
-                while (right < n && s.charAt(right) == s.charAt(i)) {
-                    right++;
-                    currentLength++;
-                }
+                        if (r - l + 1 > maxLength) {
+                            maxLength = r - l + 1;
+                            startIndex = l;
+                            endIndex = r + 1;
+                        }
+                    }
 
-                while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-                    left--;
-                    right++;
-                    currentLength += 2;
-                }
-
-                if (currentLength > maxLength) {
-                    maxLength = currentLength;
-                    startIndex = left;
                 }
 
             }
 
-            return s.substring(startIndex + 1, startIndex + maxLength + 1);
+            return s.substring(startIndex, endIndex);
 
         }
     }
