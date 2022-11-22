@@ -1,0 +1,11 @@
+class Solution {
+    public void sortColors(int[] nums) {
+
+        Arrays.sort(nums);
+
+    }
+
+}
+
+//runtime:0 ms
+//memory:40.2 MB
