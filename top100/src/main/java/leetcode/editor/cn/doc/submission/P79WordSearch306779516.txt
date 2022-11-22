@@ -1,0 +1,62 @@
+class Solution {
+    char[] wordArray;
+    int rows;
+    int cols;
+    boolean[][] visited;
+    int[][] DIRECTIONS = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    int len;
+    char[][] board;
+
+    public boolean exist(char[][] board, String word) {
+        wordArray = word.toCharArray();
+        rows = board.length;
+        cols = board[0].length;
+        len = word.length();
+        this.board = board;
+        visited = new boolean[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (backtracking(i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    public boolean backtracking(int x, int y, int begin) {
+        if (begin == len - 1) {
+            return wordArray[begin] == board[x][y];
+        }
+
+        if (wordArray[begin] == board[x][y]) {
+            visited[x][y] = true;
+            for (int[] direction : DIRECTIONS) {
+                int newX = x + direction[0];
+                int newY = y + direction[1];
+                if (newX >=0 && newY >= 0 && newX < rows && newY < cols && !visited[newX][newY]) {
+                    if (backtracking(newX, newY, begin + 1)) {
+                        return true;
+                    }
+                }
+                
+            }
+            visited[x][y] = false;
+        }
+
+        return false;
+
+    }
+}
+
+
+
+
+
+
+
+//runtime:111 ms
+//memory:39.7 MB
