@@ -25,6 +25,7 @@
         <module>all</module>
         <module>top100</module>
         <module>context</module>
+        <module>hot100</module>
     </modules>
 
     <dependencies>
