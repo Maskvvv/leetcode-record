@@ -26,8 +26,23 @@ public class GridUtils {
             res[i] = row;
         }
 
+        print(res);
+
         return res;
     }
 
+    public static void print(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(grid[i][j] + "  ");;
+            }
+            System.out.println();
+        }
+
+        System.out.println("---------------------");
+    }
 
 }

@@ -49,7 +49,7 @@ public class P63UniquePathsIi {
     public static void main(String[] args) {
         Solution solution = new P63UniquePathsIi().new Solution();
         // TO TEST
-        System.out.println(solution.uniquePathsWithObstacles(GridUtils.generateGrid("[[0,1],[0,0]]")));
+        System.out.println(solution.uniquePathsWithObstacles(GridUtils.generateGrid("[[0,0,0],[0,1,0],[0,0,0]]")));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
