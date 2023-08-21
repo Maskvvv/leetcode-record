@@ -78,7 +78,7 @@ public class P62UniquePaths {
                 }
             }
 
-            return dp[m - 1][j - 1];
+            return dp[m - 1][n - 1];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
