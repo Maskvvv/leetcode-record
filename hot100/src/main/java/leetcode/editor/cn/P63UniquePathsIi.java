@@ -42,13 +42,14 @@ package leetcode.editor.cn;
 // Related Topics 数组 动态规划 矩阵 👍 1120 👎 0
 
 
+import leetcode.editor.cn.utils.GridUtils;
+
 //Java：不同路径 II
 public class P63UniquePathsIi {
     public static void main(String[] args) {
         Solution solution = new P63UniquePathsIi().new Solution();
         // TO TEST
-        int[][] obstacleGrid = {{0, 1}, {0, 0}};
-        solution.uniquePathsWithObstacles(obstacleGrid);
+        System.out.println(solution.uniquePathsWithObstacles(GridUtils.generateGrid("[[0,1],[0,0]]")));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
