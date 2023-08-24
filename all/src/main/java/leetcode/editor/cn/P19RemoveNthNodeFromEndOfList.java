@@ -42,9 +42,7 @@ package leetcode.editor.cn;
 
 
 import leetcode.editor.cn.model.ListNode;
-import leetcode.editor.cn.model.ListNodeFactory;
-
-import javax.swing.plaf.SliderUI;
+import leetcode.editor.cn.utils.ListNodeFactory;
 
 //Java：删除链表的倒数第 N 个结点
 public class P19RemoveNthNodeFromEndOfList {

@@ -48,7 +48,7 @@ package leetcode.editor.cn;
 // Related Topics 数组 回溯 矩阵 👍 1483 👎 0
 
 
-import leetcode.editor.cn.model.GraphFactory;
+import leetcode.editor.cn.utils.GraphFactory;
 
 //Java：单词搜索
 public class P79WordSearch {

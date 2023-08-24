@@ -1,0 +1,21 @@
+# ide
+.classpath
+.project
+.settings
+.metadata
+.recommenders
+
+.idea
+*.iml
+*.ipr
+*.iws
+.git
+
+# build
+classes
+*.class
+target
+*/target
+pom.xml.*
+out/
+n-*.properties

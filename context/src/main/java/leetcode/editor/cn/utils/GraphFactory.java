@@ -1,4 +1,4 @@
-package leetcode.editor.cn.model;
+package leetcode.editor.cn.utils;
 
 import java.util.ArrayList;
 import java.util.List;

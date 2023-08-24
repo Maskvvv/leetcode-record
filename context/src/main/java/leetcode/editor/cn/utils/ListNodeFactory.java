@@ -1,5 +1,7 @@
-package leetcode.editor.cn.model;
+package leetcode.editor.cn.utils;
 
+
+import leetcode.editor.cn.model.ListNode;
 
 /**
  * @author zhouhongyin
