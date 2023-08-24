@@ -52,23 +52,23 @@ public class P152MaximumProductSubarray {
     class Solution {
         public int maxProduct(int[] nums) {
             int n = nums.length;
-            if (n == 1) return nums[0];
+            int res = nums[0];
+
+            if (n == 1) return res;
 
             int max = nums[0];
-
-            int[] maxArray = new int[n];
-            maxArray[0] = nums[0];
-            int[] minArray = new int[n];
-            minArray[0] = nums[0];
+            int min = nums[0];
 
             for (int i = 1; i < n; i++) {
-                maxArray[i] = Math.max(nums[i], Math.max(nums[i] * maxArray[i - 1], nums[i] * minArray[i - 1]));
-                minArray[i] = Math.min(nums[i], Math.min(nums[i] * maxArray[i - 1], nums[i] * minArray[i - 1]));
+                int preMax = max, preMin = min;
 
-                max = Math.max(max, maxArray[i]);
+                max = Math.max(nums[i], Math.max(nums[i] * preMax, nums[i] * preMin));
+                min = Math.min(nums[i], Math.min(nums[i] * preMax, nums[i] * preMin));
+
+                res = Math.max(max, res);
             }
 
-            return max;
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
