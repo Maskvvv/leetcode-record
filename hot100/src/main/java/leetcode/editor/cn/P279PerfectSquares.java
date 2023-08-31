@@ -38,28 +38,26 @@ public class P279PerfectSquares {
     public static void main(String[] args) {
         Solution solution = new P279PerfectSquares().new Solution();
         // TO TEST
+        System.out.println(solution.numSquares(13));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int numSquares(int n) {
-            if (n == 1) return 1;
 
             int[] dp = new int[n + 1];
-            Arrays.fill(dp, Integer.MAX_VALUE);
-
+            Arrays.fill(dp, n + 1);
             dp[0] = 0;
-            dp[1] = 1;
 
-            for (int i = 2; i <= n; i++) {
-
-                for (int j = 1; j * j <= i; j++) {
-                    dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
+            for (int i = 1; i * i <= n; i++) {
+                for (int j = i * i; j <= n; j++) {
+                    dp[j] = Math.min(dp[j], dp[j - (i * i)] + 1);
                 }
             }
 
             return dp[n];
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
