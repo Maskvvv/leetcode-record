@@ -50,12 +50,12 @@ import leetcode.editor.cn.utils.ArrayUtils;
 
 import java.util.Arrays;
 
-//Java：最长递增子序列
+//Java：300. 最长递增子序列
 public class P300LongestIncreasingSubsequence {
     public static void main(String[] args) {
         Solution solution = new P300LongestIncreasingSubsequence().new Solution();
         // TO TEST
-        int[] nums = ArrayUtils.generateNumArray("[1,3,6,7,9,4,10,5,6]");
+        int[] nums = ArrayUtils.generateNumArray("[10,9,2,5,3,7,101,18]");
         System.out.println(solution.lengthOfLIS(nums));
     }
 
@@ -64,23 +64,25 @@ public class P300LongestIncreasingSubsequence {
         public int lengthOfLIS(int[] nums) {
             int n = nums.length;
             if (n == 1) return 1;
-            int max = 1;
 
             int[] dp = new int[n];
             Arrays.fill(dp, 1);
 
+            int res = 1;
+
             for (int i = 1; i < n; i++) {
                 for (int j = 0; j < i; j++) {
-
-                    if (nums[i] > nums[j]) {
+                    if (nums[j] < nums[i]) {
                         dp[i] = Math.max(dp[i], dp[j] + 1);
-
                     }
                 }
-                max = Math.max(max, dp[i]);
+
+                res = Math.max(res, dp[i]);
             }
 
-            return max;
+            return res;
+
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
