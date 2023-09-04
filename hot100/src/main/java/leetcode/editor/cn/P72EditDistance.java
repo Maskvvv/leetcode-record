@@ -52,42 +52,39 @@ public class P72EditDistance {
     public static void main(String[] args) {
         Solution solution = new P72EditDistance().new Solution();
         // TO TEST
-        System.out.println(solution.minDistance("horse", "ros"));
+        System.out.println(solution.minDistance("intention", "execution"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int minDistance(String word1, String word2) {
-            int n = word1.length(), m = word2.length();
+            int m = word1.length(), n = word2.length();
 
-            if (n * m == 0) return n + m;
-
-            int[][] dp = new int[n + 1][m + 1];
-
-            for (int i = 1; i <= n; i++) {
-                dp[i][0] = dp[i - 1][0] + 1;
+            int[][] dp = new int[m + 1][n + 1];
+            for (int i = 0; i <= m; i++) {
+                dp[i][0] = i;
             }
 
-            for (int j = 1; j <= m; j++) {
-                dp[0][j] = dp[0][j - 1] + 1;
+            for (int j = 0; j <= n; j++) {
+                dp[0][j] = j;
             }
 
-            for (int i = 1; i <= n; i++) {
-                char a = word1.charAt(i - 1);
-                for (int j = 1; j <= m; j++) {
-                    char b = word2.charAt(j - 1);
 
-                    if (a == b) {
+            for (int i = 1; i <= m; i++) {
+                char w1 = word1.charAt(i - 1);
+                for (int j = 1; j <= n; j++) {
+                    if (w1 == word2.charAt(j - 1)) {
                         dp[i][j] = dp[i - 1][j - 1];
+
                     } else {
                         dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
                     }
 
                 }
-
             }
 
-            return dp[n][m];
+            return dp[m][n];
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
