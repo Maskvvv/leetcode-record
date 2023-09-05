@@ -57,6 +57,7 @@ public class P77Combinations {
         Deque<Integer> path;
         int k;
         int n;
+
         public List<List<Integer>> combine(int n, int k) {
             res = new ArrayList<>();
             path = new ArrayDeque<>();
@@ -73,12 +74,12 @@ public class P77Combinations {
                 return;
             }
 
-            for (int i = startIndex; i <= n; i++) {
+            // k - path.size() <= n - i + 1 => i <= n + 1 - k + path.size()
+            for (int i = startIndex; i <= n + 1 - k + path.size(); i++) {
                 path.push(i);
 
-                if (n - i + 1 >= k) {
-                    backtracking(i + 1);
-                }
+                backtracking(i + 1);
+
                 path.pop();
             }
 
