@@ -41,7 +41,7 @@ public class P647PalindromicSubstrings{
     public static void main(String[] args) {
         Solution solution = new P647PalindromicSubstrings().new Solution();
         // TO TEST
-        System.out.println(solution.countSubstrings("fdsklf"));
+        System.out.println(solution.countSubstrings("aaa"));
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
@@ -51,20 +51,19 @@ class Solution {
 
         boolean[][] dp = new boolean[n][n];
 
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = true;
-        }
-
-        int res = n;
-        for (int j = 1; j < n; j++) {
-            for (int i = 0; i < j; i++) {
+        int res = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
                 if (s.charAt(j) == s.charAt(i)) {
-                    dp[i][j] = i + 1 == j || dp[i + 1][j - 1];
-
-                    if (dp[i][j]) res++;
+                    if (j - i <= 1) {
+                        dp[i][j] = true;
+                        res++;
+                    } else if (dp[i + 1][j - 1]) {
+                        dp[i][j] = true;
+                        res++;
+                    }
                 }
             }
-
         }
 
         return res;
