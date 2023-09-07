@@ -75,6 +75,7 @@ public class P77Combinations {
             }
 
             // k - path.size() <= n - i + 1 => i <= n + 1 - k + path.size()
+            // i <= n - (k - stack.size()) + 1
             for (int i = startIndex; i <= n + 1 - k + path.size(); i++) {
                 path.push(i);
 
