@@ -63,7 +63,7 @@ public class P93RestoreIpAddresses {
         List<String> res = new ArrayList<>();
         Deque<String> path = new ArrayDeque<>();
         public List<String> restoreIpAddresses(String s) {
-
+            if (s.length() > 12) return res;
             backtracking(s, 0);
             return res;
 
