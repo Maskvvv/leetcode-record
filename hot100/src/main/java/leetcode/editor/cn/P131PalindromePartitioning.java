@@ -41,7 +41,7 @@ public class P131PalindromePartitioning {
     public static void main(String[] args) {
         Solution solution = new P131PalindromePartitioning().new Solution();
         // TO TEST
-        System.out.println(solution.partition("a"));
+        System.out.println(solution.partition("aab"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
