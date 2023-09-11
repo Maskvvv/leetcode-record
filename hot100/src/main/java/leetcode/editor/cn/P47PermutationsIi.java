@@ -61,9 +61,8 @@ public class P47PermutationsIi {
                 return;
             }
 
-            HashSet<Integer> set = new HashSet<>();
             for (int i = 0; i < nums.length; i++) {
-                if (set.contains(nums[i])) {
+                if (i > 0 && nums[i - 1] == nums[i] && !used[i]) {
                     continue;
                 }
 
@@ -71,7 +70,6 @@ public class P47PermutationsIi {
                     continue;
                 }
 
-                set.add(nums[i]);
                 used[i] = true;
                 path.addLast(nums[i]);
                 backtracking(nums, used);
