@@ -68,6 +68,15 @@ public class GraphFactory {
         }
     }
 
+    public static void print(char[][] graphArray) {
+        for (char[] array : graphArray) {
+            for (char c : array) {
+                System.out.print(c + " ");
+            }
+            System.out.println();
+        }
+    }
+
 
     public static void main(String[] args) {
         String graph = "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]";

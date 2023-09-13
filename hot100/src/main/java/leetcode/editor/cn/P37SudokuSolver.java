@@ -53,72 +53,64 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.GraphFactory;
 
-import java.util.Arrays;
-
 //Java：37. 解数独
 public class P37SudokuSolver {
     public static void main(String[] args) {
         Solution solution = new P37SudokuSolver().new Solution();
         // TO TEST
 
-        solution.solveSudoku(GraphFactory.buildArray("[[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]"));
+        char[][] board = GraphFactory.buildArray("[[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]");
+        solution.solveSudoku(board);
+
+        GraphFactory.print(board);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        char[][] res = new char[9][9];
         public void solveSudoku(char[][] board) {
 
-            backtracking(board, 0);
+            backtracking(board);
 
-            for (char[] re : res) {
-                for (char c : re) {
-                    System.out.print(c + " ");
-                }
-                System.out.println();
-            }
         }
 
-        public void backtracking(char[][] board, int row) {
+        public boolean backtracking(char[][] board) {
 
-            if (row == 9) return;
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    if (board[i][j] != '.') continue;
+                    for (char c = '1'; c <= '9'; c++) {
+                        if (isValid(board, i, j, c)) {
 
-            for (int j = 0; j < 9; j++) {
-                for (int num = 0; num < 9; num++) {
-
-                    if (board[row][j] == '.' && isValid(board, row, j, (char) ('1' + num))) {
-                        if (row == 8 && j == 8) {
-                            res = Arrays.copyOf(board, 9);
-                            return;
+                            board[i][j] = c;
+                            if (backtracking(board)) {
+                                return true;
+                            }
+                            board[i][j] = '.';
                         }
-
-                        board[row][j] = (char) ('1' + num);
-                        backtracking(board, row + 1);
-                        board[row][j] = '.';
-
                     }
 
+                    return false;
+
                 }
+
             }
+
+            return true;
         }
 
         private boolean isValid(char[][] board, int row, int col, char num) {
             for (int i = 0; i < 9; i++) {
                 if (board[i][col] == num || board[row][i] == num) return false;
-                if (row - 1 >= 0 && col - 1 >= 0 && board[row - 1][col - 1] == num) return false;
-                if (row - 1 >= 0 && col + 1 < 9 && board[row - 1][col + 1] == num) return false;
-                if (row + 1 < 9 && col - 1 >= 0 && board[row + 1][col - 1] == num) return false;
-                if (row + 1 < 9 && col + 1 < 9  && board[row + 1][col + 1] == num) return false;
             }
 
-            //int r = (row + 3) % 3 + row;
-            //int c = (col + 3) % 3 + col;
-            //for (int i = r; i > r - 3; i--) {
-            //    for (int j = c; j > c - 3; j--) {
-            //        if (board[i][j] == num) return false;
-            //    }
-            //}
+            int r = (row / 3) * 3;
+            int c = (col / 3) * 3;
+            for (int i = r; i < r + 3; i++) {
+                for (int j = c; j < c + 3; j++) {
+                    if (board[i][j] == num) return false;
+                }
+            }
 
             return true;
         }
