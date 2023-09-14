@@ -109,4 +109,7 @@ public class TreeUtils {
         prettyPrintTree(node,  "", true);
     }
 
+    public static void show(TreeNode node) {
+        TreeNodeShow.show(node);
+    }
 }
