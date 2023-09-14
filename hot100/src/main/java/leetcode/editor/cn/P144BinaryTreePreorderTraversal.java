@@ -55,8 +55,11 @@ package leetcode.editor.cn;
 
 
 import leetcode.editor.cn.model.TreeNode;
+import leetcode.editor.cn.utils.TreeUtils;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 //Java：144. 二叉树的前序遍历
@@ -64,6 +67,10 @@ public class P144BinaryTreePreorderTraversal {
     public static void main(String[] args) {
         Solution solution = new P144BinaryTreePreorderTraversal().new Solution();
         // TO TEST
+        TreeNode root = TreeUtils.stringToTreeNode("[1,null,2,3]");
+
+        TreeUtils.show(root);
+        System.out.println(solution.preorderTraversal(root));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -86,19 +93,20 @@ public class P144BinaryTreePreorderTraversal {
 
         List<Integer> res = new ArrayList<>();
         public List<Integer> preorderTraversal(TreeNode root) {
+            if (root == null) return res;
 
-            dfs(root);
+            Deque<TreeNode> queue = new LinkedList<>();
+            queue.push(root);
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.pop();
+                if (node.right != null) queue.offer(node.right);
+                if (node.left != null) queue.offer(node.left);
+                res.add(node.val);
+            }
+
             return res;
         }
 
-        public void dfs(TreeNode root) {
-            if (root == null) return;
-
-            res.add(root.val);
-            dfs(root.left);
-            dfs(root.right);
-
-        }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
