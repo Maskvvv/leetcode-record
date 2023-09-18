@@ -59,20 +59,24 @@ public class P404SumOfLeftLeaves {
      * }
      */
     class Solution {
-        int res = 0;
 
         public int sumOfLeftLeaves(TreeNode root) {
-            dfs(root);
-            return res;
+            return dfs(root);
         }
 
-        public void dfs(TreeNode root) {
-            if (root == null) return;
+        public int dfs(TreeNode root) {
+            if (root == null) return 0;
 
-            if (root.left != null && root.left.left == null && root.left.right == null) res += root.left.val;
+            int l;
+            if (root.left != null && root.left.left == null && root.left.right == null) {
+                l = root.left.val;
+            } else {
+                l = dfs(root.left);
+            }
 
-            dfs(root.left);
-            dfs(root.right);
+            int r = dfs(root.right);
+
+            return l + r;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
