@@ -81,9 +81,11 @@ public class P112PathSum {
             if (root.left == null && root.right == null && root.val == targetSum) return true;
 
             boolean left = dfs(root.left, targetSum - root.val);
+            if (left) return true;
             boolean right = dfs(root.right, targetSum - root.val);
+            if (right) return true;
 
-            return left || right;
+            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
