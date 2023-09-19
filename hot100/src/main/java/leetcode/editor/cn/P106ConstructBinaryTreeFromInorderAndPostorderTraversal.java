@@ -36,6 +36,7 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.model.TreeNode;
 import leetcode.editor.cn.utils.ArrayUtils;
+import leetcode.editor.cn.utils.TreeUtils;
 
 import java.util.Arrays;
 
@@ -45,7 +46,7 @@ public class P106ConstructBinaryTreeFromInorderAndPostorderTraversal {
         Solution solution = new P106ConstructBinaryTreeFromInorderAndPostorderTraversal().new Solution();
         // TO TEST
 
-        solution.buildTree(ArrayUtils.generateNumArray("[1,2]"), ArrayUtils.generateNumArray("[2,1]"));
+        solution.buildTree(ArrayUtils.generateNumArray("[9,3,15,20,7]"), ArrayUtils.generateNumArray("[9,15,7,20,3]"));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -89,10 +90,13 @@ public class P106ConstructBinaryTreeFromInorderAndPostorderTraversal {
             int[] leftInorder = Arrays.copyOfRange(inorder, 0, rootIndex);
             int[] leftPostorder = Arrays.copyOfRange(postorder, 0, leftInorder.length);
             node.left = buildTree(leftInorder, leftPostorder);
+            TreeUtils.show(node);
 
             int[] rightInorder = Arrays.copyOfRange(inorder, rootIndex + 1, inorder.length);
             int[] rightPostorder = Arrays.copyOfRange(postorder, postorder.length - 1 - rightInorder.length, postorder.length - 1);
             node.right = build(rightInorder, rightPostorder);
+
+            TreeUtils.show(node);
             return node;
         }
     }

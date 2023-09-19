@@ -112,5 +112,6 @@ public class TreeUtils {
     public static void show(TreeNode node) {
         TreeNodeShow.show(node);
         System.out.println();
+        System.out.println("-------------------------------------");
     }
 }
