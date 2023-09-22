@@ -35,15 +35,18 @@ package leetcode.editor.cn;
 // -2³¹ <= Node.val <= 2³¹ - 1
 //
 //
-// Related Topics 树 深度优先搜索 二叉搜索树 二叉树 👍 2165 👎 0
+// Related Topics 树 深度优先搜索 二叉搜索树 二叉树 👍 2169 👎 0
 
 import leetcode.editor.cn.model.TreeNode;
+import leetcode.editor.cn.utils.TreeUtils;
 
 //Java：98. 验证二叉搜索树
-public class P98ValidateBinarySearchTree {
+public class P98ValidateBinarySearchTree{
     public static void main(String[] args) {
         Solution solution = new P98ValidateBinarySearchTree().new Solution();
         // TO TEST
+        TreeNode root = TreeUtils.stringToTreeNode("[2,1,3]");
+        System.out.println(solution.isValidBST(root));
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -63,21 +66,24 @@ public class P98ValidateBinarySearchTree {
      * }
      */
     class Solution {
+
+        TreeNode preNode;
         public boolean isValidBST(TreeNode root) {
             return dfs(root);
         }
 
         public boolean dfs(TreeNode root) {
             if (root == null) return true;
-            if (root.left == null && root.right == null) return true;
 
             boolean left = dfs(root.left);
+            if (!left) return false;
+
+            if (preNode != null && preNode.val >= root.val) return false;
+            preNode = root;
+
             boolean right = dfs(root.right);
 
-            if (root.left != null && root.left.val > root.val) return false;
-            if (root.right != null && root.right.val < root.val) return false;
-
-            return left && right;
+            return right;
 
         }
     }
