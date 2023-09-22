@@ -76,35 +76,22 @@ public class P701InsertIntoABinarySearchTree {
 
         TreeNode node;
         public TreeNode insertIntoBST(TreeNode root, int val) {
+            return insert(root, val);
+
+        }
+
+        public TreeNode insert(TreeNode root, int val) {
             if (root == null) {
                 return new TreeNode(val);
             }
 
-            insert(root, val);
-            return root;
-
-        }
-
-        public void insert(TreeNode root, int val) {
-            if (root == null || node != null) return;
-
-            if (val < root.val && root.left == null) {
-                root.left = new TreeNode(val);
-                node = root.left;
-                return;
-            }
-
-            if (val > root.val && root.right == null) {
-                root.right = new TreeNode(val);
-                node = root.right;
-                return;
-            }
-
             if (val < root.val) {
-                insert(root.left, val);
+                root.left = insert(root.left, val);
             } else {
-                insert(root.right, val);
+                root.right = insert(root.right, val);
             }
+
+            return root;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
