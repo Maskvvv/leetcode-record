@@ -59,6 +59,8 @@ public class P122BestTimeToBuyAndSellStockIi {
             int n = prices.length;
             if (n == 1) return 0;
 
+            // i,0 表示第i天不持有不持有股票所拥有的钱
+            // i,1 表示第i天持有不持有股票所拥有的钱
             int[][] dp = new int[n][2];
             dp[0] = new int[]{0, -prices[0]};
 
