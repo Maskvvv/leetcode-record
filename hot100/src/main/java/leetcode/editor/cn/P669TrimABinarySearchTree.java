@@ -68,16 +68,13 @@ public class P669TrimABinarySearchTree {
         public TreeNode traversal(TreeNode root, int low, int high) {
             if (root == null) return null;
 
-            TreeNode left = traversal(root.left, low, high);
-            TreeNode right = traversal(root.right, low, high);
-
             if (root.val < low) {
-                return right;
+                return traversal(root.right, low, high);
             } else if (root.val > high) {
-                return left;
+                return traversal(root.left, low, high);
             } else {
-                root.left = left;
-                root.right = right;
+                root.left = traversal(root.left, low, high);
+                root.right = traversal(root.right, low, high);
                 return root;
             }
 
