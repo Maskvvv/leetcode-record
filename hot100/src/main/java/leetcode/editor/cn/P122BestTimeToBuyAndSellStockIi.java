@@ -59,18 +59,15 @@ public class P122BestTimeToBuyAndSellStockIi {
             int n = prices.length;
             if (n == 1) return 0;
 
-            int pre0 = 0;
-            int pre1 = -prices[0];
-
-            for (int i = 1; i < n; i++) {
-
-                int a0 = pre0, a1 = pre1;
-
-                pre0 = Math.max(a0, a1 + prices[i]);
-                pre1 = Math.max(a1, a0 - prices[i]);
+            int res = 0;
+            for (int i = 1; i < prices.length; i++) {
+                if (prices[i] > prices[i - 1]) {
+                    res = prices[i] - prices[i - 1];
+                }
             }
 
-            return pre0;
+            return res;
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
