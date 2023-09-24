@@ -62,25 +62,20 @@ public class P108ConvertSortedArrayToBinarySearchTree {
      */
     class Solution {
         public TreeNode sortedArrayToBST(int[] nums) {
-
-            return dfs(0, nums.length - 1, nums);
+            return traversal(0, nums.length - 1, nums);
         }
 
-        public TreeNode dfs(int leftIndex, int rightIndex, int[] nums) {
+        public TreeNode traversal(int leftIndex, int rightIndex, int[] nums) {
+            if (leftIndex >= nums.length || rightIndex < 0 || leftIndex > rightIndex) return null;
 
-            if (leftIndex < 0 || rightIndex < 0 || leftIndex >= nums.length || rightIndex >= nums.length || leftIndex > rightIndex) {
-                return null;
-            }
+            int mid = (leftIndex + rightIndex) / 2;
+            TreeNode node = new TreeNode(nums[mid]);
 
-            int midIndex = (leftIndex + rightIndex) / 2;
+            TreeNode left = traversal(leftIndex, mid - 1, nums);
+            TreeNode right = traversal(mid + 1, rightIndex, nums);
 
-            TreeNode left = dfs(leftIndex, midIndex - 1, nums);
-            TreeNode right = dfs(midIndex + 1, rightIndex, nums);
-
-            TreeNode node = new TreeNode(nums[midIndex]);
             node.left = left;
             node.right = right;
-
             return node;
         }
     }
