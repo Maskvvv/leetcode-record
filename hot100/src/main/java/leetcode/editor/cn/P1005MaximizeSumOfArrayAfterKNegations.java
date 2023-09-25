@@ -49,7 +49,9 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.ArrayUtils;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //Java：1005. K 次取反后最大化的数组和
 public class P1005MaximizeSumOfArrayAfterKNegations {
@@ -63,20 +65,21 @@ public class P1005MaximizeSumOfArrayAfterKNegations {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int largestSumAfterKNegations(int[] nums, int k) {
-            Arrays.sort(nums);
+            List<Integer> collect = IntStream.of(nums).boxed().sorted((n1, n2) -> Math.abs(n2) - Math.abs(n1)).collect(Collectors.toList());
 
             int sum = 0;
-            for (int i = 0; i < nums.length; i++) {
-                if (nums[i] < 0 && k > 0) {
+            for (int i = 0; i < collect.size(); i++) {
+                if (collect.get(i) < 0 && k > 0) {
                     nums[i] = -nums[i];
+
+                    collect.set(i, -collect.get(i));
                     k--;
                 }
-                sum += nums[i];
+                sum += collect.get(i);
             }
 
-            Arrays.sort(nums);
             if (k > 0) {
-                sum += k % 2 == 1 ? -2 * nums[0] : 0;
+                sum += k % 2 == 1 ? -2 * collect.get(collect.size() - 1) : 0;
             }
 
             return sum;
