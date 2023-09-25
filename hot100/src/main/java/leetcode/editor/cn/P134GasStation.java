@@ -60,17 +60,21 @@ public class P134GasStation {
         public int canCompleteCircuit(int[] gas, int[] cost) {
 
             int n = gas.length;
+            int curSum = 0;
+            int totalSum = 0;
+            int startIndex = 0;
             for (int i = 0; i < gas.length; i++) {
-                int total = 0;
-                for (int j = 0; j < gas.length; j++) {
-                    total += (gas[(j + i) % n] - cost[(j + i) % n]);
-                    if (total < 0) break;
+                curSum = curSum + gas[i] - cost[i];
+                totalSum = totalSum + gas[i] - cost[i];
+                if (curSum < 0 ) {
+                    startIndex = i + 1;
+                    curSum = 0;
                 }
-
-                if (total >= 0) return i;
             }
 
-            return -1;
+            if (totalSum < 0) return -1;
+
+            return startIndex;
 
         }
     }
