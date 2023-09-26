@@ -47,6 +47,13 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.model.TreeNode;
 
 //Java：114. 二叉树展开为链表
+/**
+ * <p> 114. 二叉树展开为链表 </p>
+ *
+ * @author zhouhongyin
+ * @since 2023/9/26 11:48
+ * @see P897IncreasingOrderSearchTree
+ */
 public class P114FlattenBinaryTreeToLinkedList {
     public static void main(String[] args) {
         Solution solution = new P114FlattenBinaryTreeToLinkedList().new Solution();

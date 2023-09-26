@@ -32,6 +32,13 @@ package leetcode.editor.cn;
 import leetcode.editor.cn.model.TreeNode;
 
 //Java：897. 递增顺序搜索树
+/**
+ * <p> 897. 递增顺序搜索树 </p>
+ *
+ * @author zhouhongyin
+ * @since 2023/9/26 11:48
+ * @see P114FlattenBinaryTreeToLinkedList
+ */
 public class P897IncreasingOrderSearchTree {
     public static void main(String[] args) {
         Solution solution = new P897IncreasingOrderSearchTree().new Solution();
