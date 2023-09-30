@@ -79,12 +79,15 @@ public class P968BinaryTreeCameras {
             if (left == noCover || right == noCover) {
                 res++;
                 return hasCamera;
-            } else if (left == hasCamera || right == hasCamera) {
+            }
+            if (left == hasCamera || right == hasCamera) {
                 return hasCover;
-            } else {
+            }
+            if (left == hasCover && right == hasCover) {
                 return noCover;
             }
 
+            return -1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
