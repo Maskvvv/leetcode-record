@@ -34,8 +34,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 贪心 哈希表 双指针 字符串 👍 1026 👎 0
 
-import leetcode.editor.cn.model.TreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,23 +51,19 @@ public class P763PartitionLabels {
 
             char[] chars = s.toCharArray();
             int[] last = new int[26];
-
             for (int i = 0; i < chars.length; i++) {
-                char c = chars[i];
-                last[c - 'a'] = Math.max(last[c - 'a'], i);
+                last[chars[i] - 'a'] = i;
             }
 
             int start = 0, end = 0;
             for (int i = 0; i < chars.length; i++) {
-                char c = chars[i];
-                end = Math.max(end, last[c - 'a']);
+                end = Math.max(end, last[chars[i] - 'a']);
                 if (end == i) {
                     res.add(end - start + 1);
                     start = i + 1;
                     end = i + 1;
                 }
             }
-
             return res;
         }
     }
