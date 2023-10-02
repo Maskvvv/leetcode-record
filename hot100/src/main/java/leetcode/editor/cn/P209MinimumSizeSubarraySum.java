@@ -48,11 +48,15 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 二分查找 前缀和 滑动窗口 👍 1898 👎 0
 
+import leetcode.editor.cn.utils.ArrayUtils;
+
 //Java：209. 长度最小的子数组
 public class P209MinimumSizeSubarraySum {
     public static void main(String[] args) {
         Solution solution = new P209MinimumSizeSubarraySum().new Solution();
         // TO TEST
+
+        System.out.println(solution.minSubArrayLen(15, ArrayUtils.generateNumArray("[1,2,3,4,5]")));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -61,21 +65,15 @@ public class P209MinimumSizeSubarraySum {
 
             int left = 0, right = 0;
             int res = Integer.MAX_VALUE;
-            int sum = nums[0];
-            while (left <= right && right < nums.length) {
-                if (sum < target) {
-                    right++;
-                    if (right < nums.length) {
-                        sum += nums[right];
-                    }
-                } else {
+            int sum = 0;
+            for (right = 0; right < nums.length; right++) {
+                sum += nums[right];
+                while (sum >= target) {
                     res = Math.min(res, right - left + 1);
-                    sum -= nums[left];
+                    sum -= nums[left++];
                     left++;
                 }
-
             }
-
             return res > nums.length ? 0 : res;
         }
     }
