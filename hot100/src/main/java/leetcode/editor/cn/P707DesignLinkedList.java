@@ -51,16 +51,29 @@ package leetcode.editor.cn;
 //
 // Related Topics 设计 链表 👍 938 👎 0
 
+import cn.hutool.core.util.ReflectUtil;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 //Java：707. 设计链表
 public class P707DesignLinkedList {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         // TO TEST
+        MyLinkedList myLinkedList = ReflectUtil.newInstanceIfPossible(MyLinkedList.class);
 
-        MyLinkedList linkedList = new  P707DesignLinkedList().new MyLinkedList();
+
+        Constructor<MyLinkedList> constructor = ReflectUtil.getConstructors(MyLinkedList.class)[0];
+        constructor.setAccessible(true);
+        MyLinkedList linkedList = constructor.newInstance(new Object[]{null});
+
+
+        //MyLinkedList linkedList = new P707DesignLinkedList().new MyLinkedList();
         linkedList.addAtIndex(0, 10);
         linkedList.addAtIndex(0, 20);
         linkedList.addAtIndex(1, 30);
         linkedList.get(0);
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
