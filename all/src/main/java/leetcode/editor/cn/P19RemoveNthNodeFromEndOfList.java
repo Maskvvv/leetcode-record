@@ -42,13 +42,13 @@ package leetcode.editor.cn;
 
 
 import leetcode.editor.cn.model.ListNode;
-import leetcode.editor.cn.utils.ListNodeFactory;
+import leetcode.editor.cn.utils.ListNodeUtils;
 
 //Java：删除链表的倒数第 N 个结点
 public class P19RemoveNthNodeFromEndOfList {
     public static void main(String[] args) {
         Solution solution = new P19RemoveNthNodeFromEndOfList().new Solution();
-        solution.removeNthFromEnd(ListNodeFactory.build(new int[]{1}), 1);
+        solution.removeNthFromEnd(ListNodeUtils.build(new int[]{1}), 1);
         // TO TEST
     }
     //leetcode submit region begin(Prohibit modification and deletion)
