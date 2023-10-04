@@ -47,4 +47,22 @@ public class ListNodeUtils {
         }
         return dummyRoot.next;
     }
+
+    public static String listNodeToString(ListNode node) {
+        if (node == null) {
+            return "[]";
+        }
+
+        String result = "";
+        while (node != null) {
+            result += Integer.toString(node.val) + ", ";
+            node = node.next;
+        }
+        return "[" + result.substring(0, result.length() - 2) + "]";
+    }
+
+    public static void printListNode(ListNode node) {
+        System.out.println(ListNodeUtils.listNodeToString(node));
+    }
+
 }
