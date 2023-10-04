@@ -62,21 +62,19 @@ public class P203RemoveLinkedListElements {
      */
     class Solution {
         public ListNode removeElements(ListNode head, int val) {
-            ListNode newHead = new ListNode();
-            newHead.next = head;
-            ListNode pre = newHead;
+            ListNode dummyHead = new ListNode();
+            dummyHead.next = head;
+            ListNode current = dummyHead;
 
-            while (head != null) {
-                if (head.val == val) {
-                    pre.next = head.next;
-                    head = head.next;
+            while (current.next != null) {
+                if (current.next.val == val) {
+                    current.next = current.next.next;
                 } else {
-                    pre = head;
-                    head = head.next;
+                    current = current.next;
                 }
             }
 
-            return newHead.next;
+            return dummyHead.next;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
