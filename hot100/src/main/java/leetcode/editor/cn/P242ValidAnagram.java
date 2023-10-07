@@ -33,9 +33,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 哈希表 字符串 排序 👍 853 👎 0
 
-import java.util.HashMap;
-import java.util.Map;
-
 //Java：242. 有效的字母异位词
 public class P242ValidAnagram {
     public static void main(String[] args) {
@@ -50,22 +47,18 @@ public class P242ValidAnagram {
         public boolean isAnagram(String s, String t) {
             if (s.length() != t.length()) return false;
 
-            Map<Character, Integer> map1 = new HashMap<>();
-            Map<Character, Integer> map2 = new HashMap<>();
+            int[] map1 = new int[26];
+            int[] map2 = new int[26];
             for (char c : s.toCharArray()) {
-                map1.put(c, map1.getOrDefault(c, 0) + 1);
+                map1[c - 'a'] += 1;
             }
 
             for (char c : t.toCharArray()) {
-                map2.put(c, map2.getOrDefault(c, 0) + 1);
+                map2[c - 'a'] += 1;
             }
 
-            if (map1.size() != map2.size()) return false;
-
-            for (Map.Entry<Character, Integer> entry : map1.entrySet()) {
-
-                Character key = entry.getKey();
-                if (map2.get(key) == null || !entry.getValue().equals(map2.get(key))) return false;
+            for (int i = 0; i < map1.length; i++) {
+                if (map1[i] != map2[i]) return false;
             }
 
             return true;
