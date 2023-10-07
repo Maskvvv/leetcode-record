@@ -60,21 +60,14 @@ public class P1TwoSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] twoSum(int[] nums, int target) {
-            int n = nums.length;
-
             Map<Integer, Integer> map = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                if (map.get(target - nums[i]) != 0) return new int[]{map.get(target - nums[i]), i};
 
-            for (int i = 0; i < n; i++) {
-                int n1 = target - nums[i];
-                if (map.containsKey(n1)) {
-                    return new int[]{i, map.get(n1)};
-                }
-
-                int n0 = nums[i];
-                map.put(n0, i);
+                map.put(nums[i], i);
             }
 
-            return null;
+            return new int[2];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
