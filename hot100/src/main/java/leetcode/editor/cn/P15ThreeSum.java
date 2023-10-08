@@ -53,8 +53,6 @@ package leetcode.editor.cn;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 //Java：15. 三数之和
 public class P15ThreeSum {
@@ -75,16 +73,16 @@ public class P15ThreeSum {
 
                 int left = i + 1, right = nums.length - 1;
                 while (left < right) {
-                    if (left > i + 1 && nums[left - 1] == nums[left]) {
-                        left++;
-                        continue;
-                    }
 
                     int sum = nums[left] + nums[right];
                     if (sum == target) {
-                        res.add(Stream.of(nums[i], nums[left], nums[right]).collect(Collectors.toList()));
+                        res.add(Arrays.asList(nums[i], nums[left], nums[right]));
                         left++;
                         right--;
+
+                        while (left < right && nums[left] == nums[left - 1]) left++;
+                        while (left < right && nums[right] == nums[right + 1]) right--;
+
                     } else if (sum > target) {
                         right--;
                     } else {
