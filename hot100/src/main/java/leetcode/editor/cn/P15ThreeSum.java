@@ -50,8 +50,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 双指针 排序 👍 6393 👎 0
 
-import leetcode.editor.cn.model.TreeNode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,39 +66,35 @@ public class P15ThreeSum {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
-            int n = nums.length;
             List<List<Integer>> res = new ArrayList<>();
             Arrays.sort(nums);
 
-            for (int i = 0; i <= n - 3; i++) {
+            for (int i = 0; i < nums.length - 2; i++) {
                 if (i > 0 && nums[i] == nums[i - 1]) continue;
+                int target = -nums[i];
 
-                int l = i + 1;
-                int r = n - 1;
-                while (l < r) {
-                    if (l > i + 1 && nums[l] == nums[l - 1]) {
-                        l++;
+                int left = i + 1, right = nums.length - 1;
+                while (left < right) {
+                    if (left > i + 1 && nums[left - 1] == nums[left]) {
+                        left++;
                         continue;
                     }
 
-                    int sum = nums[i] + nums[l] + nums[r];
-                    if (sum == 0) {
-                        res.add(Arrays.asList(nums[i], nums[l], nums[r]));
-                        l++;
-                        r--;
+                    int sum = nums[left] + nums[right];
+                    if (sum == target) {
+                        res.add(Stream.of(nums[i], nums[left], nums[right]).collect(Collectors.toList()));
+                        left++;
+                        right--;
+                    } else if (sum > target) {
+                        right--;
                     } else {
-                        if (sum > 0) {
-                            r--;
-                        } else {
-                            l++;
-                        }
+                        left++;
                     }
                 }
 
             }
 
             return res;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
