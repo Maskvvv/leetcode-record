@@ -58,29 +58,82 @@ public class P151ReverseWordsInAString {
     public static void main(String[] args) {
         Solution solution = new P151ReverseWordsInAString().new Solution();
         // TO TEST
-        String line = "  the  sky is blue  ";
+        String line = "the sky is blue";
 
-        System.out.println(line.trim().replaceAll("(\\s)+", "$1"));
 
-        System.out.println(Arrays.toString(line.trim().split("(\\s)+")));
-
+        System.out.println(solution.reverseWords(line));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String reverseWords(String s) {
-            String[] array = s.trim().split("(\\s)+");
-            int l = 0, r = array.length - 1;
 
-            while (l < r) {
-                swap(array, l++, r--);
-            }
+            char[] chars = s.toCharArray();
 
-            return String.join(" ", array);
+            chars = removeExtraSpaces(chars);
+
+            reverse(chars, 0, chars.length - 1);
+
+            reverseEachWord(chars);
+
+            return new String(chars);
         }
 
-        public void swap(String[] array, int i, int j) {
-            String temp = array[i];
+        private char[] removeExtraSpaces(char[] chars) {
+
+            int slow = 0;
+            for (int fast = 0; fast < chars.length; fast++) {
+                if (chars[fast] != ' ') {
+                    swap(chars, slow, fast);
+                    slow++;
+                    if (fast != chars.length - 1 && chars[fast + 1] == ' ') {
+                        if (slow < fast) {
+                            slow++;
+                        } else {
+                            slow++;
+                            fast++;
+                        }
+                    }
+                }
+
+            }
+
+            slow = chars.length - 1;
+            while (chars[slow] == ' ') {
+                slow--;
+            }
+
+
+            return Arrays.copyOfRange(chars, 0, slow + 1);
+        }
+
+        public void reverse(char[] chars, int start, int end) {
+            while (start < end) {
+                swap(chars, start++, end--);
+            }
+        }
+
+        private void reverseEachWord(char[] chars) {
+            int start;
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] != ' ') {
+                    start = i;
+
+                    for (; i < chars.length; i++) {
+                        if (chars[i] == ' ') break;
+                    }
+                    int end = i - 1;
+                    while (start < end) {
+                        swap(chars, start, end);
+                        start++;
+                        end--;
+                    }
+                }
+            }
+        }
+
+        public void swap(char[] array, int i, int j) {
+            char temp = array[i];
             array[i] = array[j];
             array[j] = temp;
         }
