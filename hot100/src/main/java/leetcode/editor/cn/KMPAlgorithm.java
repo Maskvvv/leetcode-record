@@ -62,7 +62,7 @@ public class KMPAlgorithm {
 
     public static void main(String[] args) {
 
-        System.out.println(KMPAlgorithm.match("aabaabaaf", "aabaaf"));
+        System.out.println(KMPAlgorithm.match("sadbutsad", "sad"));
 
     }
 }
