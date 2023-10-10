@@ -1,5 +1,10 @@
 package leetcode.editor.cn;
 
+
+import org.apache.commons.lang3.time.StopWatch;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * <p>KMP Algorithm</p>
  *
@@ -61,8 +66,27 @@ public class KMPAlgorithm {
     }
 
     public static void main(String[] args) {
+        String master = "sadbutsadlajsdflkajdflkajsdflajsaksjdflkajsdlfasdjflkajsdogwhrghsahfglajflkajdfoiasofawjfzhouhongyin";
+        String sub = "zhouhongyin";
 
-        System.out.println(KMPAlgorithm.match("sadbutsad", "sad"));
+        StopWatch stopWatch = new StopWatch();
+        // 开始时间
+        stopWatch.start();
+        // 执行时间（1s）
+        for (int i = 0; i < 10; i++) {
+            //KMPAlgorithm.match(master, sub);
+            master.indexOf(sub);
+        }
+        // 结束时间
+        stopWatch.stop();
+
+
+        // 统计执行时间（秒）
+        System.out.println("执行时长：" + stopWatch.getTime(TimeUnit.SECONDS) + " 秒.");
+        // 统计执行时间（毫秒）
+        System.out.println("执行时长：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + " 毫秒.");
+        // 统计执行时间（纳秒）
+        System.out.println("执行时长：" + stopWatch.getTime(TimeUnit.NANOSECONDS) + " 纳秒.");
 
     }
 }
