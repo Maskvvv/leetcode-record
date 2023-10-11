@@ -91,22 +91,31 @@ public class P150EvaluateReversePolishNotation {
             Deque<String> stack = new ArrayDeque<>();
 
             for (String token : tokens) {
-                if (token.equals("+")) {
-                    stack.push(String.valueOf(Integer.parseInt(stack.pop()) + Integer.parseInt(stack.pop())));
-                } else if (token.equals("-")) {
-                    int v2 = Integer.parseInt(stack.pop());
-                    int v1 = Integer.parseInt(stack.pop());
-                    stack.push(String.valueOf(v1 - v2));
-                } else if (token.equals("*")) {
-                    int v2 = Integer.parseInt(stack.pop());
-                    int v1 = Integer.parseInt(stack.pop());
-                    stack.push(String.valueOf(v1 * v2));
-                } else if (token.equals("/")) {
-                    int v2 = Integer.parseInt(stack.pop());
-                    int v1 = Integer.parseInt(stack.pop());
-                    stack.push(String.valueOf(v1 / v2));
-                } else {
-                    stack.push(token);
+                switch (token) {
+                    case "+":
+                        stack.push(String.valueOf(Integer.parseInt(stack.pop()) + Integer.parseInt(stack.pop())));
+                        break;
+                    case "-": {
+                        int v2 = Integer.parseInt(stack.pop());
+                        int v1 = Integer.parseInt(stack.pop());
+                        stack.push(String.valueOf(v1 - v2));
+                        break;
+                    }
+                    case "*": {
+                        int v2 = Integer.parseInt(stack.pop());
+                        int v1 = Integer.parseInt(stack.pop());
+                        stack.push(String.valueOf(v1 * v2));
+                        break;
+                    }
+                    case "/": {
+                        int v2 = Integer.parseInt(stack.pop());
+                        int v1 = Integer.parseInt(stack.pop());
+                        stack.push(String.valueOf(v1 / v2));
+                        break;
+                    }
+                    default:
+                        stack.push(token);
+                        break;
                 }
             }
 
