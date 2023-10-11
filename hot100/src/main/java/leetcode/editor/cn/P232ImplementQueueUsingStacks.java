@@ -86,24 +86,20 @@ public class P232ImplementQueueUsingStacks {
         }
 
         public int pop() {
-            if (!outStack.isEmpty()) {
-                return outStack.pop();
-            }
-
-            while (!inStack.isEmpty()) {
-                outStack.push(inStack.pop());
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
+                }
             }
 
             return outStack.pop();
         }
 
         public int peek() {
-            if (!outStack.isEmpty()) {
-                return outStack.peek();
-            }
-
-            while (!inStack.isEmpty()) {
-                outStack.push(inStack.pop());
+            if (outStack.isEmpty()) {
+                while (!inStack.isEmpty()) {
+                    outStack.push(inStack.pop());
+                }
             }
 
             return outStack.peek();
