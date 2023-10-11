@@ -75,26 +75,20 @@ public class P225ImplementStackUsingQueues {
 
         public void push(int x) {
             queue.offer(x);
+
+            if (queue.size() > 1) {
+                for (int i = 0; i < queue.size() - 1; i++) {
+                    queue.offer(queue.poll());
+                }
+            }
         }
 
         public int pop() {
-            int size = queue.size();
-            for (int i = 0; i < size - 1; i++) {
-                queue.offer(queue.poll());
-            }
             return queue.poll();
         }
 
         public int top() {
-            int size = queue.size();
-            for (int i = 0; i < size - 1; i++) {
-                queue.offer(queue.poll());
-            }
-
-            Integer res = queue.peek();
-            queue.offer(queue.poll());
-
-            return res;
+            return queue.peek();
         }
 
         public boolean empty() {
