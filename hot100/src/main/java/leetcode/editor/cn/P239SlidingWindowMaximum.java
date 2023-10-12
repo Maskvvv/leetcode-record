@@ -62,16 +62,17 @@ public class P239SlidingWindowMaximum {
         Deque<Integer> increasingQueue = new ArrayDeque<>();
         public int[] maxSlidingWindow(int[] nums, int k) {
             int[] res = new int[nums.length - k + 1];
-            Deque<Integer> queue = new ArrayDeque<>();
-            for (int i = 0; i < nums.length; i++) {
-                queue.addLast(nums[i]);
-                push(nums[i]);
-                if (i < k - 1) {
-                    continue;
-                }
 
-                res[i - k + 1] = getMax();
-                pop(queue.removeFirst());
+            int index = 0;
+            for (int i = 0; i < k; i++) {
+                push(nums[i]);
+            }
+
+            res[index++] = getMax();
+            for (int i = k; i < nums.length; i++) {
+                push(nums[i]);
+                pop(nums[i - k]);
+                res[index++] = getMax();
             }
             return res;
         }
