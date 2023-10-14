@@ -48,7 +48,6 @@ package leetcode.editor.cn;
 // Related Topics 栈 数组 哈希表 单调栈 👍 1098 👎 0
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,29 +62,21 @@ public class P496NextGreaterElementI {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-            int[] res = new int[nums1.length];
-            Arrays.fill(res, -1);
-
-            Map<Integer, Integer> map = new HashMap<>();
-            for (int i = 0; i < nums1.length; i++) {
-                map.put(nums1[i], i);
-            }
-
             Deque<Integer> stack = new ArrayDeque<>();
-            for (int i = 0; i < nums2.length; i++) {
-                while (!stack.isEmpty() && stack.getLast() < nums2[i]) {
-                    Integer pre = stack.removeLast();
-                    Integer preIndex = map.get(pre);
-                    if (preIndex != null) {
-                        res[preIndex] = nums2[i];
-                    }
-                }
+            Map<Integer, Integer> map = new HashMap<>();
 
-                stack.addLast(nums2[i]);
+            for (int i = 0; i < nums2.length; i++) {
+                while (!stack.isEmpty() && nums2[i] > stack.peek()) {
+                    map.put(stack.pop(), nums2[i]);
+                }
+                stack.push(nums2[i]);
             }
 
-            return res;
+            for (int i = 0; i < nums1.length; i++) {
+                nums1[i] = map.getOrDefault(nums1[i], -1);
+            }
 
+            return nums1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
