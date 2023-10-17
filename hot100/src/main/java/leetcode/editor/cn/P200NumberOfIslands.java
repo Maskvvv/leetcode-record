@@ -67,7 +67,6 @@ public class P200NumberOfIslands {
                 for (int j = 0; j < grid[i].length; j++) {
                     if (grid[i][j] == '1') {
                         res++;
-                        grid[i][j] = '0';
                         dfs(grid, i, j);
                     }
                 }
@@ -77,13 +76,14 @@ public class P200NumberOfIslands {
         }
 
         public void dfs(char[][] grid, int x, int y) {
+            if (grid[x][y] == '0') return;
 
+            grid[x][y] = '0';
             for (int j = 0; j < position.length; j++) {
                 int newX = x + position[j][0];
                 int newY = y + position[j][1];
 
-                if (newX >= 0 && newY >= 0 && newX < grid.length && newY < grid[0].length && grid[newX][newY] == '1') {
-                    grid[newX][newY] = '0';
+                if (newX >= 0 && newY >= 0 && newX < grid.length && newY < grid[0].length) {
                     dfs(grid, newX, newY);
                 }
             }
