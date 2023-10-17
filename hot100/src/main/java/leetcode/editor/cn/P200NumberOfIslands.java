@@ -46,6 +46,9 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.GraphFactory;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 //Java：200. 岛屿数量
 public class P200NumberOfIslands {
     public static void main(String[] args) {
@@ -67,7 +70,8 @@ public class P200NumberOfIslands {
                 for (int j = 0; j < grid[i].length; j++) {
                     if (grid[i][j] == '1') {
                         res++;
-                        dfs(grid, i, j);
+                        grid[i][j] = '0';
+                        bfs(grid, i, j);
                     }
                 }
             }
@@ -75,18 +79,26 @@ public class P200NumberOfIslands {
             return res;
         }
 
-        public void dfs(char[][] grid, int x, int y) {
-            if (grid[x][y] == '0') return;
+        public void bfs(char[][] grid, int x, int y) {
+            Deque<int[]> queue = new ArrayDeque<>();
 
-            grid[x][y] = '0';
-            for (int j = 0; j < position.length; j++) {
-                int newX = x + position[j][0];
-                int newY = y + position[j][1];
+            queue.addLast(new int[]{x, y});
 
-                if (newX >= 0 && newY >= 0 && newX < grid.length && newY < grid[0].length) {
-                    dfs(grid, newX, newY);
+            while (!queue.isEmpty()) {
+                int[] node = queue.removeLast();
+
+                for (int j = 0; j < position.length; j++) {
+                    int newX = node[0] + position[j][0];
+                    int newY = node[1] + position[j][1];
+
+                    if (newX >= 0 && newY >= 0 && newX < grid.length && newY < grid[0].length && grid[newX][newY] == '1') {
+                        grid[newX][newY] = '0';
+                        queue.addLast(new int[]{newX, newY});
+                    }
                 }
             }
+
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
