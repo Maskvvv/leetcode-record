@@ -43,7 +43,7 @@ public class P56MergeIntervals {
     public static void main(String[] args) {
         Solution solution = new P56MergeIntervals().new Solution();
         // TO TEST
-        System.out.println(Arrays.deepToString(solution.merge(GridUtils.generateGrid("[[1,3],[2,6],[8,10],[15,18]]"))));
+        System.out.println(Arrays.deepToString(solution.merge(GridUtils.generateIntGrid("[[1,3],[2,6],[8,10],[15,18]]"))));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)

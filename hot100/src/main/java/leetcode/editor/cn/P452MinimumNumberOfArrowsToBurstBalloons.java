@@ -56,7 +56,7 @@ public class P452MinimumNumberOfArrowsToBurstBalloons {
     public static void main(String[] args) {
         Solution solution = new P452MinimumNumberOfArrowsToBurstBalloons().new Solution();
         // TO TEST
-        System.out.println(solution.findMinArrowShots(GridUtils.generateGrid("[[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]")));
+        System.out.println(solution.findMinArrowShots(GridUtils.generateIntGrid("[[9,12],[1,10],[4,11],[8,12],[3,9],[6,9],[6,7]]")));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)

@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class GridUtils {
 
-    public static int[][] generateGrid(String grid) {
+    public static int[][] generateIntGrid(String grid) {
 
         int m = grid.split("],\\[").length;
         int n = grid.split("],\\[")[0].split(",").length;
@@ -29,6 +29,12 @@ public class GridUtils {
         print(res);
 
         return res;
+    }
+
+    public static char[][] generateCharGrid(String grid) {
+        char[][] chars = GraphFactory.buildArray(grid);
+        GraphFactory.print(chars);
+        return chars;
     }
 
     public static void print(int[][] grid) {
