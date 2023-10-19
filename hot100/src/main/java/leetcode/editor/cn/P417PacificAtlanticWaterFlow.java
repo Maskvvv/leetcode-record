@@ -65,13 +65,13 @@ public class P417PacificAtlanticWaterFlow {
             isAtlantic = new boolean[heights.length][heights[0].length];
 
             for (int i = 0; i < heights.length; i++) {
-                dfs(heights, i, 0, isPacific, new boolean[heights.length][heights[0].length]);
-                dfs(heights, i, heights[0].length - 1, isAtlantic, new boolean[heights.length][heights[0].length]);
+                dfs(heights, i, 0, isPacific);
+                dfs(heights, i, heights[0].length - 1, isAtlantic);
             }
 
             for (int j = 0; j < heights[0].length; j++) {
-                dfs(heights, 0, j, isPacific, new boolean[heights.length][heights[0].length]);
-                dfs(heights, heights.length - 1, j, isAtlantic, new boolean[heights.length][heights[0].length]);
+                dfs(heights, 0, j, isPacific);
+                dfs(heights, heights.length - 1, j, isAtlantic);
             }
 
             for (int i = 0; i < heights.length; i++) {
@@ -86,8 +86,7 @@ public class P417PacificAtlanticWaterFlow {
             return res;
         }
 
-        public void dfs(int[][] heights, int x, int y, boolean[][] isOcean, boolean[][] visited) {
-            visited[x][y] = true;
+        public void dfs(int[][] heights, int x, int y, boolean[][] isOcean) {
             isOcean[x][y] = true;
 
             for (int i = 0; i < position.length; i++) {
@@ -95,9 +94,9 @@ public class P417PacificAtlanticWaterFlow {
                 int nextY = y + position[i][1];
 
                 if (nextX >= 0 && nextY >= 0 && nextX < heights.length && nextY < heights[0].length
-                        && !visited[nextX][nextY] && heights[nextX][nextY] >= heights[x][y]) {
+                        && !isOcean[nextX][nextY] && heights[nextX][nextY] >= heights[x][y]) {
 
-                    dfs(heights, nextX, nextY, isOcean, visited);
+                    dfs(heights, nextX, nextY, isOcean);
                 }
             }
         }
