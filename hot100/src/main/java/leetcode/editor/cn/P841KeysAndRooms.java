@@ -49,10 +49,7 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.GridUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 //Java：841. 钥匙和房间
 public class P841KeysAndRooms {
@@ -66,38 +63,29 @@ public class P841KeysAndRooms {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        boolean[] visited;
         public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-            List<Integer> queue = new ArrayList<>();
-            boolean[] visited = new boolean[rooms.size()];
-            Set<Integer> set = new HashSet<>();
-            queue.add(0);
-            visited[0] = true;
-            set.add(0);
+            visited = new boolean[rooms.size()];
 
+            dfs(rooms, 0);
 
-            while (!queue.isEmpty()) {
-
-                List<Integer> nextQueue = new ArrayList<>();
-
-                for (Integer room : queue) {
-                    List<Integer> keys = rooms.get(room);
-                    set.addAll(keys);
-                    for (Integer key : keys) {
-                        if (!visited[key]) {
-                            visited[key] = true;
-                            List<Integer> k = rooms.get(key);
-
-                            nextQueue.addAll(k);
-                            set.addAll(k);
-                        }
-                    }
-                }
-
-                queue = nextQueue;
+            for (boolean vi : visited) {
+                if (!vi) return false;
             }
 
+            return true;
+        }
 
-            return set.size() == rooms.size();
+
+        public void dfs(List<List<Integer>> rooms, int i) {
+            if (visited[i]) return;
+
+            visited[i] = true;
+            List<Integer> keys = rooms.get(i);
+            for (Integer key : keys) {
+                dfs(rooms, key);
+            }
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
