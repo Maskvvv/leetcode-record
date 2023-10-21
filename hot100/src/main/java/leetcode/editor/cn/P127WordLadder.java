@@ -62,7 +62,7 @@ public class P127WordLadder{
     public static void main(String[] args) {
         Solution solution = new P127WordLadder().new Solution();
         // TO TEST
-        System.out.println(solution.ladderLength("hit", "cog", ArrayUtils.generateStringArray("[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]")));
+        System.out.println(solution.ladderLength("hit", "cog", ArrayUtils.generateArray("[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]")));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {

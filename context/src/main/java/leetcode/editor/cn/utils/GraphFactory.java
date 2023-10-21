@@ -58,10 +58,10 @@ public class GraphFactory {
         print(graphList);
     }
 
-    public static void print(List<List<String>> graphList) {
+    public static <T> void print(List<List<T>> graphList) {
 
-        for (List<String> graphs : graphList) {
-            for (String s : graphs) {
+        for (List<T> graphs : graphList) {
+            for (T s : graphs) {
                 System.out.print(s + " ");
             }
             System.out.println();

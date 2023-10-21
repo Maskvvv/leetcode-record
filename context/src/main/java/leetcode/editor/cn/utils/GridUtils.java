@@ -2,6 +2,7 @@ package leetcode.editor.cn.utils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 图工具类
@@ -42,6 +43,15 @@ public class GridUtils {
         List<List<String>> lists = GraphFactory.build(grid);
         GraphFactory.print(lists);
         return lists;
+    }
+
+    public static List<List<Integer>> generateIntegerGrid(String grid) {
+        List<List<String>> lists = GraphFactory.build(grid);
+        GraphFactory.print(lists);
+
+        List<List<Integer>> newList = lists.stream().map(l -> l.stream().map(Integer::valueOf).collect(Collectors.toList())).collect(Collectors.toList());
+
+        return newList;
     }
 
     public static void print(int[][] grid) {
