@@ -1,6 +1,7 @@
 package leetcode.editor.cn.utils;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 图工具类
@@ -35,6 +36,12 @@ public class GridUtils {
         char[][] chars = GraphFactory.buildArray(grid);
         GraphFactory.print(chars);
         return chars;
+    }
+
+    public static List<List<String>> generateStringGrid(String grid) {
+        List<List<String>> lists = GraphFactory.build(grid);
+        GraphFactory.print(lists);
+        return lists;
     }
 
     public static void print(int[][] grid) {
