@@ -48,7 +48,7 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         Solution solution = new P3LongestSubstringWithoutRepeatingCharacters().new Solution();
         // TO TEST
-        System.out.println(solution.lengthOfLongestSubstring("abba"));
+        System.out.println(solution.lengthOfLongestSubstring("tmmzuxt"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -56,27 +56,21 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
         public int lengthOfLongestSubstring(String s) {
 
             int res = 0;
-            int startIndex = 0;
-
+            int l = 0;
             Map<Character, Integer> map = new HashMap<>();
 
-            for (int i = 0; i < s.length(); i++) {
-                char cha = s.charAt(i);
-
-                Integer index = map.get(cha);
-
+            char[] chars = s.toCharArray();
+            for (int r = 0; r < s.length(); r++) {
+                Integer index = map.get(chars[r]);
                 if (index != null) {
-                    startIndex = Math.max(startIndex, index + 1);
+                    l = Math.max(index + 1, l);
                 }
 
-                map.put(cha, i);
-
-                res = Math.max(res, i - startIndex + 1);
-
+                res = Math.max(res, r - l + 1);
+                map.put(chars[r], r);
             }
 
             return res;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
