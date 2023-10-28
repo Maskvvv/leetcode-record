@@ -33,10 +33,8 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.GridUtils;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Deque;
 
 //Java：56. 合并区间
 public class P56MergeIntervals {
@@ -49,28 +47,25 @@ public class P56MergeIntervals {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[][] merge(int[][] intervals) {
-            Arrays.sort(intervals, Comparator.comparingInt(i -> i[0]));
 
-            Deque<int[]> list = new ArrayDeque<>();
-            list.addLast(intervals[0]);
+            Arrays.sort(intervals, Comparator.comparingInt(d -> d[0]));
+
+            int preIndex = 0;
 
             for (int i = 1; i < intervals.length; i++) {
-                int[] last = list.peekLast();
-                if (last[1] >= intervals[i][0]) {
-                    last[1] = Math.max(last[1], intervals[i][1]);
+                int[] current = intervals[i];
+                int[] pre = intervals[preIndex];
+
+                if (current[0] <= pre[1]) {
+                    pre[1] = Math.max(pre[1], current[1]);
                 } else {
-                    list.addLast(intervals[i]);
+                    preIndex++;
+                    intervals[preIndex][0] = current[0];
+                    intervals[preIndex][1] = current[1];
                 }
             }
 
-            int[][] res = new int[list.size()][];
-
-            int size = list.size();
-            for (int i = 0; i < size; i++) {
-                res[i] = list.pollFirst();
-            }
-
-            return res;
+            return Arrays.copyOfRange(intervals, 0, preIndex + 1);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
