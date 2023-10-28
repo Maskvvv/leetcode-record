@@ -39,12 +39,8 @@ package leetcode.editor.cn;
 //
 // Related Topics 哈希表 字符串 滑动窗口 👍 9685 👎 0
 
-import leetcode.editor.cn.model.TreeNode;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 //Java：3. 无重复字符的最长子串
 public class P3LongestSubstringWithoutRepeatingCharacters {
@@ -57,22 +53,24 @@ public class P3LongestSubstringWithoutRepeatingCharacters {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLongestSubstring(String s) {
-            int length = s.length();
-            if (length < 2) return length;
 
-            Map<Character, Integer> map = new HashMap<>();
+            Map<Character, Integer> window = new HashMap<>();
             int max = 0;
-            int start = 0, end = 0;
-            while (end < length) {
-                char endC = s.charAt(end);
-                if (map.containsKey(endC)) {
-                    start = Math.max(start, map.get(endC) + 1);
+            int left = 0, right = 0;
+
+            char[] chars = s.toCharArray();
+            while (right < s.length()) {
+                char c = chars[right];
+                right++;
+                window.put(c, window.getOrDefault(c, 0) + 1);
+
+                while (window.get(c) > 1) {
+                    char d = chars[left];
+                    left++;
+                    window.put(d, window.get(d) - 1);
                 }
 
-                max = Math.max(max, end - start + 1);
-
-                map.put(endC, end);
-                end++;
+                max = Math.max(max, right - left);
             }
 
             return max;
