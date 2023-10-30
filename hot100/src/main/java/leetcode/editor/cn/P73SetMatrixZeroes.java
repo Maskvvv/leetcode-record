@@ -43,38 +43,59 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 哈希表 矩阵 👍 965 👎 0
 
-import java.util.HashSet;
-import java.util.Set;
+import leetcode.editor.cn.utils.GridUtils;
 
 //Java：73. 矩阵置零
 public class P73SetMatrixZeroes {
     public static void main(String[] args) {
         Solution solution = new P73SetMatrixZeroes().new Solution();
         // TO TEST
+
+        solution.setZeroes(GridUtils.generateIntGrid("[[0,1,2,0],[3,4,5,2],[1,3,1,5]]"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public void setZeroes(int[][] matrix) {
-            Set<Integer> col = new HashSet<>();
-            Set<Integer> row = new HashSet<>();
+            boolean firstCol = false;
+            boolean firstRow = false;
 
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[i].length; j++) {
-
                     if (matrix[i][j] == 0) {
-                        row.add(i);
-                        col.add(j);
+                        matrix[i][0] = 0;
+                        matrix[0][j] = 0;
+
+                        if (i == 0) {
+                            firstRow = true;
+                        }
+
+                        if (j == 0) {
+                            firstCol = true;
+                        }
                     }
                 }
             }
 
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[i].length; j++) {
-                    if (row.contains(i) || col.contains(j)) {
+            for (int i = 1; i < matrix.length; i++) {
+                for (int j = 1; j < matrix[i].length; j++) {
+                    if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                         matrix[i][j] = 0;
                     }
                 }
+            }
+
+            if (firstRow) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    matrix[0][j] = 0;
+                }
+            }
+
+            if (firstCol) {
+                for (int i = 0; i < matrix.length; i++) {
+                    matrix[i][0] = 0;
+                }
+
             }
         }
     }
