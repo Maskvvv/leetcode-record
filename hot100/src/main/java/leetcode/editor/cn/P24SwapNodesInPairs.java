@@ -36,12 +36,19 @@ package leetcode.editor.cn;
 // Related Topics 递归 链表 👍 2040 👎 0
 
 import leetcode.editor.cn.model.ListNode;
+import leetcode.editor.cn.utils.ListNodeUtils;
 
 //Java：24. 两两交换链表中的节点
 public class P24SwapNodesInPairs {
     public static void main(String[] args) {
         Solution solution = new P24SwapNodesInPairs().new Solution();
         // TO TEST
+
+        ListNode head = ListNodeUtils.stringToListNode("[1,2,3,4]");
+
+        ListNodeUtils.printListNode(head);
+        ListNodeUtils.printListNode(solution.swapPairs(head));
+
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -57,25 +64,25 @@ public class P24SwapNodesInPairs {
      */
     class Solution {
         public ListNode swapPairs(ListNode head) {
+            ListNode resHead = new ListNode();
+            resHead.next = head;
+            ListNode pre = resHead;
 
-            ListNode dummyHead = new ListNode();
-            dummyHead.next = head;
 
-            ListNode cur = dummyHead;
+            while (pre != null && pre.next != null && pre.next.next != null) {
 
-            while (cur.next != null && cur.next.next != null) {
-                ListNode temp1 = cur.next;
-                ListNode temp2 = cur.next.next;
-                ListNode temp3 = cur.next.next.next;
+                ListNode p1 = pre.next;
+                ListNode p2 = pre.next.next;
 
-                cur.next = temp2;
-                temp2.next = temp1;
-                temp1.next = temp3;
+                p1.next = p2.next;
+                p2.next = p1;
+                pre.next = p2;
 
-                cur = temp1;
+                pre = p1;
             }
 
-            return dummyHead.next;
+            return resHead.next;
+
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
