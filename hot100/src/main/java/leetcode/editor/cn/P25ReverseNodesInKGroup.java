@@ -72,48 +72,43 @@ public class P25ReverseNodesInKGroup {
             ListNode dummyHead = new ListNode();
             dummyHead.next = head;
 
-            ListNode pre = dummyHead;
+            ListNode start = dummyHead;
+            ListNode end = dummyHead;
 
-            while (pre != null && pre.next != null) {
-                if (!hasK(pre, k)) {
-                    return dummyHead.next;
-
+            while (end.next != null) {
+                for (int i = 0; i < k && end != null; i++) {
+                    end = end.next;
                 }
-                ListNode left = pre;
-                ListNode current = pre.next;
-                ListNode right = pre.next.next;
-                int i = 0;
+                if (end == null) break;
 
-                while (i++ < k) {
-                    current.next = left;
+                ListNode nextStart = start.next;
+                ListNode nextEnd = end.next;
+                end.next = null;
 
-                    left = current;
-                    current = right;
-                    if (right == null) break;
-                    right = right.next;
-                }
+                reverse(nextStart);
 
-                //ListNodeUtils.printListNode(dummyHead.next);
-                pre.next.next = current;
+                nextStart.next = nextEnd;
+                start.next = end;
 
-                ListNode next = pre.next;
-                pre.next = left;
-
-                pre = next;
+                end = nextStart;
+                start = nextStart;
             }
-
 
             return dummyHead.next;
         }
 
-        private boolean hasK(ListNode pre, int k) {
+        private void reverse(ListNode head) {
 
-            for (int i = 0; i < k; i++) {
-                pre = pre.next;
-                if (pre == null) return false;
+            ListNode pre = null;
+            ListNode cur = head;
 
+            while (cur != null) {
+                ListNode next = cur.next;
+                cur.next = pre;
+
+                pre = cur;
+                cur = next;
             }
-            return true;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
