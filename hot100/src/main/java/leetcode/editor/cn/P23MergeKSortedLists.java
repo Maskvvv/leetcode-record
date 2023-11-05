@@ -71,13 +71,19 @@ public class P23MergeKSortedLists {
             int length = lists.length;
             if (length == 0) return null;
 
-            ListNode dummyHead = lists[0];
+            return divide(lists, 0, length - 1);
+        }
 
-            for (int i = 1; i < length; i++) {
-                dummyHead = merge(dummyHead, lists[i]);
+        public ListNode divide(ListNode[] lists, int left, int right) {
+            if (left == right) {
+                return lists[left];
             }
 
-            return dummyHead;
+            if (left > right) return null;
+
+            int mid = (right + left) / 2;
+
+            return merge(divide(lists, left, mid), divide(lists, mid + 1, right));
         }
 
         public ListNode merge(ListNode list1, ListNode list2) {
