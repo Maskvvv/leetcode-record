@@ -57,29 +57,41 @@ public class P155MinStack {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class MinStack {
+
         Deque<Integer> stack = new ArrayDeque<>();
         Deque<Integer> minStack = new ArrayDeque<>();
+
 
         public MinStack() {
 
         }
 
         public void push(int val) {
-            stack.push(val);
-            minStack.push(minStack.isEmpty() ? val : Math.min(minStack.peek(), val));
+            stack.addLast(val);
+            if (!minStack.isEmpty()) {
+                Integer min = minStack.peekLast();
+                if (min < val) {
+                    minStack.addLast(min);
+                } else {
+                    minStack.addLast(val);
+                }
+            } else {
+                minStack.addLast(val);
+            }
         }
 
         public void pop() {
-            stack.pop();
-            minStack.pop();
+            stack.removeLast();
+            minStack.removeLast();
+
         }
 
         public int top() {
-            return stack.peek();
+            return stack.peekLast();
         }
 
         public int getMin() {
-            return minStack.peek();
+            return minStack.peekLast();
         }
     }
 
