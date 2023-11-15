@@ -64,9 +64,6 @@ public class P1143LongestCommonSubsequence {
 
             int[][] dp = new int[m + 1][n + 1];
 
-
-            int res = 0;
-
             for (int i = 1; i <= m; i++) {
                 for (int j = 1; j <= n; j++) {
                     if (chars1[i - 1] == chars2[j - 1]) {
@@ -74,12 +71,10 @@ public class P1143LongestCommonSubsequence {
                     } else {
                         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                     }
-
-                    res = Math.max(res, dp[i][j]);
                 }
             }
 
-            return res;
+            return dp[m][n];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
