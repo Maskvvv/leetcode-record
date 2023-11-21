@@ -32,12 +32,18 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.GridUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //Java：149. 直线上最多的点数
 public class P149MaxPointsOnALine {
     public static void main(String[] args) {
         Solution solution = new P149MaxPointsOnALine().new Solution();
         // TO TEST
         System.out.println(solution.maxPoints(GridUtils.generateIntGrid("[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]")));
+
+
+
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
@@ -46,25 +52,30 @@ public class P149MaxPointsOnALine {
 
             int n = points.length;
 
-            int res = 0;
+            int res = 1;
             for (int i = 0; i < n; i++) {
-                int[] p1 = points[i];
+                Map<String, Integer> map = new HashMap<>();
                 for (int j = i + 1; j < n; j++) {
-                    int[] p2 = points[j];
-                    int subRes = 2;
-                    for (int k = j + 1; k < n; k++) {
-                        int[] p3 = points[k];
-                        int s1 = (p1[1] - p2[1]) * (p2[0] - p3[0]);
-                        int s2 = (p2[1] - p3[1]) * (p1[0] - p2[0]);
-                        if (s1 == s2) subRes++;
-                    }
+                    int x1 = points[i][0], y1 = points[i][1];
+                    int x2 = points[j][0], y2 = points[j][1];
 
-                    res = Math.max(res, subRes);
+                    int a = x1 - x2, b = y1 - y2;
+                    int gcd = gcd(a, b);
+
+                    String key = (a / gcd) + "_" + (b / gcd);
+
+                    map.put(key, map.getOrDefault(key, 1) + 1);
+
+                    res = Math.max(res, map.get(key));
                 }
             }
 
             return res;
 
+        }
+
+        public int gcd(int a, int b) {
+            return b == 0 ? a : gcd(b, a % b);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
