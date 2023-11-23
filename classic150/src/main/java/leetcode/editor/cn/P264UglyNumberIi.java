@@ -31,10 +31,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 哈希表 数学 动态规划 堆（优先队列） 👍 1131 👎 0
 
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
-
 //Java：264. 丑数 II
 public class P264UglyNumberIi {
     public static void main(String[] args) {
@@ -46,27 +42,24 @@ public class P264UglyNumberIi {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int nthUglyNumber(int n) {
-            int[] nums = new int[]{2, 3, 5};
 
-            PriorityQueue<Long> pq = new PriorityQueue<>();
-            Set<Long> set = new HashSet<>();
+            int[] ans = new int[n + 1];
+            ans[1] = 1;
 
-            pq.offer(1L);
-            set.add(1L);
+            for (int i2 = 1, i3 = 1, i5 = 1, idx = 2; idx <= n ; idx++) {
 
-            for (int i = 1; i < n; i++) {
-                Long min = pq.poll();
+                int n2 = ans[i2] * 2, n3 = ans[i3] * 3, n5 = ans[i5] * 5;
 
-                for (int num : nums) {
-                    long multi = min * num;
-                    if (!set.contains(multi)) {
-                        pq.offer(multi);
-                        set.add(multi);
-                    }
-                }
+                int min = Math.min(n2, Math.min(n3, n5));
+
+                ans[idx] = min;
+
+                if (n2 == min) i2++;
+                if (n3 == min) i3++;
+                if (n5 == min) i5++;
             }
 
-            return pq.poll().intValue();
+            return ans[n];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
