@@ -61,13 +61,13 @@ public class P4MedianOfTwoSortedArrays {
             int left = 0, right = m;
 
             while (left < right) {
-                int i = left + (right - left + 1) / 2;
+                int i = left + (right - left) / 2;
                 int j = totalLeft - i;
 
-                if (nums1[i - 1] > nums2[j]) {
-                    right = i - 1;
+                if (nums1[i] < nums2[j - 1]) {
+                    left = i + 1;
                 } else {
-                    left = i;
+                    right = i;
                 }
             }
 
