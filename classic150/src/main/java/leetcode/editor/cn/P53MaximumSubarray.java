@@ -52,16 +52,10 @@ public class P53MaximumSubarray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int maxSubArray(int[] nums) {
-
-            int n = nums.length;
-            int[] dp = new int[n];
-            dp[0] = nums[0];
-
             int res = nums[0];
-
-            for (int i = 1; i < n; i++) {
-                dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
-                res = Math.max(res, dp[i]);
+            for (int i = 1; i < nums.length; i++) {
+                nums[i] = Math.max(nums[i], nums[i] + nums[i - 1]);
+                res = Math.max(res, nums[i]);
             }
 
             return res;
