@@ -85,11 +85,15 @@ package leetcode.editor.cn;
 //
 // Related Topics 树 数组 分治 矩阵 👍 200 👎 0
 
+import leetcode.editor.cn.utils.GridUtils;
+
 //Java：427. 建立四叉树
 public class P427ConstructQuadTree {
     public static void main(String[] args) {
         Solution solution = new P427ConstructQuadTree().new Solution();
         // TO TEST
+
+        solution.construct(GridUtils.generateIntGrid("[[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]"));
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 /*
@@ -133,36 +137,42 @@ class Node {
 */
 
     class Solution {
+
         public Node construct(int[][] grid) {
-            return dfs(grid, 0, 0, grid.length, grid[0].length);
-        }
-
-        public Node dfs(int[][] grid, int r0, int c0, int r1, int c1) {
-            boolean isSame = true;
-
-            for (int i = r0; i < r1 && isSame; i++) {
-                for (int j = c0; j < c1 && isSame; j++) {
-                    if (grid[i][j] != grid[r0][c0]) {
-                        isSame = false;
-                    }
-
+            int n = grid.length;
+            int[][] pre = new int[n + 1][n + 1];
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    pre[i][j] = pre[i - 1][j] + pre[i][j - 1] - pre[i - 1][j - 1] + grid[i - 1][j - 1];
                 }
             }
 
-            if (isSame) {
-                return new Node(grid[r0][c0] == 1, true);
+            return dfs(grid, pre, 0, 0, n, n);
+        }
+
+        public Node dfs(int[][] grid, int[][] pre, int r0, int c0, int r1, int c1) {
+
+            int sum = getSum(pre, r0, c0, r1, c1);
+            if (sum == 0) {
+                return new Node(false, true);
+            } else if (sum == (r1 - r0) * (c1 - c0)) {
+                return new Node(true, true);
             }
 
             Node node = new Node(
                     true,
                     false,
-                    dfs(grid, r0, c0, (r0 + r1) / 2, (c0 + c1) / 2),
-                    dfs(grid, r0, (c0 + c1) / 2, (r0 + r1) / 2, c1),
-                    dfs(grid, (r0 + r1) / 2, c0, r1, (c0 + c1) / 2),
-                    dfs(grid,(r0 + r1) / 2, (c0 + c1) / 2, r1, c1)
+                    dfs(grid, pre, r0, c0, (r0 + r1) / 2, (c0 + c1) / 2),
+                    dfs(grid, pre, r0, (c0 + c1) / 2, (r0 + r1) / 2, c1),
+                    dfs(grid, pre, (r0 + r1) / 2, c0, r1, (c0 + c1) / 2),
+                    dfs(grid, pre, (r0 + r1) / 2, (c0 + c1) / 2, r1, c1)
             );
 
             return node;
+        }
+
+        public int getSum(int[][] pre, int r0, int c0, int r1, int c1) {
+            return pre[r1][c1] - pre[r1][c0] - pre[r0][c1] + pre[r0][c0];
         }
     }
 
