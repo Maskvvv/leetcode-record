@@ -13,13 +13,23 @@ import java.util.regex.Pattern;
  * @since 2023/8/24 17:11
  */
 public class ArrayUtils {
-    public static int[] generateNumArray(String nums) {
-        nums = nums.replace("[", "");
-        nums = nums.replace("]", "");
+    public static int[] generateNumArray(String numArray) {
+        numArray = numArray.replace("[", "");
+        numArray = numArray.replace("]", "");
 
-        String[] array = nums.split(",");
+        String[] array = numArray.split(",");
 
         return Arrays.stream(array).mapToInt(Integer::valueOf).toArray();
+    }
+    public static String[] generateStringArray(String stringArray) {
+        Pattern pattern = Pattern.compile("\"(\\w+?)\"");
+        Matcher matcher = pattern.matcher(stringArray);
+
+        List<String> list = new ArrayList<>();
+        while (matcher.find()) {
+            list.add(matcher.group(1));
+        }
+        return list.toArray(new String[0]);
     }
 
     public static <T> List<T>  generateArray(String str) {
@@ -33,18 +43,7 @@ public class ArrayUtils {
 
 
     public static void main(String[] args) {
-        List<String> array = generateArray("[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]");
-
-        System.out.println(array);
-
-
-        List<Integer> num = generateArray("[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]");
-        System.out.println(num);
-
-
-        System.out.println(generateArray("[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]"));
-
-        print(generateArray("[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]"));
+        System.out.println(Arrays.toString(generateStringArray("[\"oath\",\"pea\",\"eat\",\"rain\"]")));
     }
 
 

@@ -38,6 +38,9 @@ package leetcode.editor.cn;
 //
 // Related Topics 字典树 数组 字符串 回溯 矩阵 👍 816 👎 0
 
+import leetcode.editor.cn.utils.ArrayUtils;
+import leetcode.editor.cn.utils.GraphFactory;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,15 +51,20 @@ public class P212WordSearchIi {
     public static void main(String[] args) {
         Solution solution = new P212WordSearchIi().new Solution();
         // TO TEST
+
+        System.out.println(solution.findWords(
+                GraphFactory.buildArray("[[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]]"),
+                ArrayUtils.generateStringArray("[\"oath\",\"pea\",\"eat\",\"rain\"]")));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        TrieNode trie = new TrieNode();
         int[][] position = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         List<String> res = new ArrayList<>();
-        boolean[][] visited;
         Set<String> set = new HashSet<>();
-        StringBuilder path = new StringBuilder();
+        boolean[][] visited;
 
         public List<String> findWords(char[][] board, String[] words) {
             int m = board.length;
@@ -64,46 +72,61 @@ public class P212WordSearchIi {
             visited = new boolean[m][n];
 
             for (String word : words) {
-                set.add(word);
+                insert(word);
             }
 
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
-                    path.append(board[i][j]);
-                    visited[i][j] = true;
-                    backtracking(board, i, j);
-                    visited[i][j] = false;
-                    path.deleteCharAt(path.length() - 1);
+                    int index = board[i][j] - 'a';
+                    if (trie.children[index] != null) {
+                        visited[i][j] = true;
+                        backtracking(board, i, j, trie.children[index]);
+                        visited[i][j] = false;
+                    }
                 }
             }
+            res.addAll(set);
 
             return res;
         }
 
-        public void backtracking(char[][] board, int x, int y) {
-            if (path.length() > 10) {
-                return;
-            }
-
-            String word = path.toString();
-            if (set.contains(word)) {
-                set.remove(word);
-                res.add(word);
-                return;
+        public void backtracking(char[][] board, int x, int y, TrieNode trieNode) {
+            if (trieNode.s != null) {
+                set.add(trieNode.s);
             }
 
             for (int[] p : position) {
                 int nextX = x + p[0];
                 int nextY = y + p[1];
-
                 if (nextX >= 0 && nextY >= 0 && nextX < board.length && nextY < board[0].length && !visited[nextX][nextY]) {
-                    visited[x][y] = true;
-                    path.append(board[nextX][nextY]);
-                    backtracking(board, nextX, nextY);
-                    path.deleteCharAt(path.length() - 1);
-                    visited[x][y] = false;
+                    int index = board[nextX][nextY] - 'a';
+                    if (trieNode.children[index] != null) {
+                        visited[nextX][nextY] = true;
+                        backtracking(board, nextX, nextY, trieNode.children[index]);
+                        visited[nextX][nextY] = false;
+                    }
                 }
             }
+        }
+
+        class TrieNode {
+            String s;
+            TrieNode[] children = new TrieNode[26];
+        }
+
+        public void insert(String word) {
+            TrieNode pre = trie;
+
+            char[] chars = word.toCharArray();
+            for (char c : chars) {
+                int index = c - 'a';
+
+                if (pre.children[index] == null) {
+                    pre.children[index] = new TrieNode();
+                }
+                pre = pre.children[index];
+            }
+            pre.s = word;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
