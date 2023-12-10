@@ -53,6 +53,21 @@ public class GraphFactory {
         return res;
     }
 
+    public static int[][] buildIntArray(String graph) {
+        List<List<String>> graphList = build(graph);
+
+        int[][] res = new int[graphList.size()][graphList.get(0).size()];
+
+        for (int i = 0; i < graphList.size(); i++) {
+            List<String> subGraph = graphList.get(i);
+            for (int j = 0; j < subGraph.size(); j++) {
+                res[i][j] = subGraph.get(j).charAt(0);
+            }
+        }
+
+        return res;
+    }
+
     public static void print(String graph) {
         List<List<String>> graphList = build(graph);
         print(graphList);
