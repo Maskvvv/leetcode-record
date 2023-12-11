@@ -61,22 +61,13 @@ public class P104MaximumDepthOfBinaryTree {
      */
     class Solution {
 
-        int res = 0;
         public int maxDepth(TreeNode root) {
-            dfs(root, 1);
-
-            return res;
+            return dfs(root);
         }
 
-        public void dfs(TreeNode root, int depth) {
-            if (root == null) return;
-
-            if (root.left == null && root.right == null) {
-                res = Math.max(res, depth);
-            }
-
-            dfs(root.left, depth + 1);
-            dfs(root.right, depth + 1);
+        public int dfs(TreeNode root) {
+            if (root == null) return 0;
+            return Math.max(dfs(root.left), dfs(root.right)) + 1;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
