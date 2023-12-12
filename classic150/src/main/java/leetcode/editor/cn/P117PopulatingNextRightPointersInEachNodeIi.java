@@ -51,8 +51,8 @@ package leetcode.editor.cn;
 //
 // Related Topics 树 深度优先搜索 广度优先搜索 链表 二叉树 👍 818 👎 0
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 //Java：117. 填充每个节点的下一个右侧节点指针 II
 public class P117PopulatingNextRightPointersInEachNodeIi {
@@ -85,33 +85,25 @@ class Node {
 */
 
     class Solution {
+        private final List<Node> pre = new ArrayList<>();
+
         public Node connect(Node root) {
-
-            if (root == null) return root;
-
-            Deque<Node> queue = new ArrayDeque<>();
-            queue.addLast(root);
-
-            while (!queue.isEmpty()) {
-                Deque<Node> nextQueue = new ArrayDeque<>();
-
-                Node pre = queue.removeFirst();
-                if (pre.left != null) nextQueue.addLast(pre.left);
-                if (pre.right != null) nextQueue.addLast(pre.right);
-
-                while (!queue.isEmpty()) {
-                    Node node = queue.removeFirst();
-                    pre.next = node;
-                    pre = node;
-
-                    if (node.left != null) nextQueue.addLast(node.left);
-                    if (node.right != null) nextQueue.addLast(node.right);
-                }
-
-                queue = nextQueue;
-            }
-
+            dfs(root, 0); // 根节点的深度为 0
             return root;
+        }
+
+        private void dfs(Node node, int depth) {
+            if (node == null) {
+                return;
+            }
+            if (depth == pre.size()) { // node 是这一层最左边的节点
+                pre.add(node);
+            } else { // pre[depth] 是 node 左边的节点
+                pre.get(depth).next = node; // node 左边的节点指向 node
+                pre.set(depth, node);
+            }
+            dfs(node.left, depth + 1);
+            dfs(node.right, depth + 1);
         }
     }
 
