@@ -81,35 +81,18 @@ public class P129SumRootToLeafNumbers {
      */
     class Solution {
 
-        int res = 0;
-        StringBuilder sb = new StringBuilder();
         public int sumNumbers(TreeNode root) {
-            dfs(root);
-
-            return res;
+            return dfs(root, 0);
         }
 
-        public void dfs(TreeNode root) {
-            if (root == null) return;
-            sb.append(root.val);
+        public int dfs(TreeNode root, int sum) {
+            if (root == null) return 0;
 
+            int curSum = sum * 10 + root.val;
             if (root.left == null && root.right == null) {
-                res += Integer.parseInt(sb.toString());
-
-                sb.deleteCharAt(sb.length() - 1);
-                return;
+                return curSum;
             }
-
-
-            if (root.left != null) {
-                dfs(root.left);
-            }
-
-            if (root.right != null) {
-                dfs(root.right);
-            }
-
-            sb.deleteCharAt(sb.length() - 1);
+            return dfs(root.left, curSum) + dfs(root.right, curSum);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
