@@ -86,7 +86,6 @@ public class P94BinaryTreeInorderTraversal {
 
             while (!stack.isEmpty()) {
                 Object[] objects = stack.removeLast();
-                if (objects[0] == null) continue;
 
                 TreeNode node = (TreeNode) objects[0];
                 int color = (int) objects[1];
@@ -94,9 +93,14 @@ public class P94BinaryTreeInorderTraversal {
                 if (color == GRAY) {
                     res.add(node.val);
                 } else {
-                    stack.addLast(new Object[]{node.right, WHITE});
+                    if (node.right != null) {
+                        stack.addLast(new Object[]{node.right, WHITE});
+                    }
                     stack.addLast(new Object[]{node, GRAY});
-                    stack.addLast(new Object[]{node.left, WHITE});
+
+                    if (node.left != null) {
+                        stack.addLast(new Object[]{node.left, WHITE});
+                    }
                 }
             }
 
