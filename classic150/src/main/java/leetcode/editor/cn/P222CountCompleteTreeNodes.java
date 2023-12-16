@@ -70,12 +70,36 @@ public class P222CountCompleteTreeNodes {
      */
     class Solution {
         public int countNodes(TreeNode root) {
+            return doCountNodes(root);
+        }
 
+        public int doCountNodes(TreeNode root) {
             if (root == null) {
                 return 0;
             }
 
-            return countNodes(root.left) + countNodes(root.right) + 1;
+            int leftDepth = 0, rightDepth = 0;
+            TreeNode left = root.left, right = root.right;
+
+            while (left != null) {
+                left = left.left;
+                leftDepth++;
+            }
+
+            while (right != null) {
+                right = right.right;
+                rightDepth++;
+            }
+
+            if (leftDepth == rightDepth) {
+
+                return (2 << leftDepth) - 1;
+            }
+
+            int leftCount = doCountNodes(root.left);
+            int rightCount = doCountNodes(root.right);
+
+            return leftCount + rightCount + 1;
 
         }
     }
