@@ -61,32 +61,26 @@ public class P92ReverseLinkedListIi {
      */
     class Solution {
         public ListNode reverseBetween(ListNode head, int left, int right) {
-            ListNode dummyHead = new ListNode();
-            dummyHead.next = head;
-
-            ListNode pre = dummyHead;
-            ListNode cur = head;
-            for (int i = 1; i < left; i++) {
-                cur = cur.next;
-                pre = pre.next;
+            if (left == 1) {
+                return reverse(head, right);
             }
 
-            ListNode l = pre;
+            head.next = reverseBetween(head.next, left - 1, right - 1);
+            return head;
+        }
 
-            for (int i = 0; i < right - left + 1; i++) {
-                ListNode next = cur.next;
-                cur.next = pre;
-
-                pre = cur;
-                cur = next;
+        ListNode successor = null;
+        public ListNode reverse(ListNode head, int n) {
+            if (n == 1) {
+                successor = head.next;
+                return head;
             }
 
-            ListNode r = cur;
+            ListNode last = reverse(head.next, n - 1);
 
-            l.next.next = r;
-            l.next = pre;
-
-            return dummyHead.next;
+            head.next.next = head;
+            head.next = successor;
+            return last;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
