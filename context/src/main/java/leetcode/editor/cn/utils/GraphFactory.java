@@ -61,7 +61,7 @@ public class GraphFactory {
         for (int i = 0; i < graphList.size(); i++) {
             List<String> subGraph = graphList.get(i);
             for (int j = 0; j < subGraph.size(); j++) {
-                res[i][j] = subGraph.get(j).charAt(0);
+                res[i][j] = Integer.parseInt(subGraph.get(j));
             }
         }
 
