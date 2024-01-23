@@ -69,16 +69,15 @@ public class P80RemoveDuplicatesFromSortedArrayIi {
         }
 
         public int doRemoveDuplicates(int[] nums, int k) {
-            int j = 0;
+            int slow = k, fast = k;
 
-            for (int i = 0; i < nums.length; i++) {
-                if (j < k || nums[i] != nums[j - k]) {
-                    nums[j] = nums[i];
-                    j++;
+            for (; fast < nums.length; fast++) {
+                if (nums[fast] != nums[slow - k]) {
+                    nums[slow] = nums[fast];
                 }
             }
 
-            return j;
+            return slow;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
