@@ -51,26 +51,16 @@ public class P392IsSubsequence {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public boolean isSubsequence(String s, String t) {
-            int m = s.length();
-            int n = t.length();
-            if (m > n) return false;
+            if (s.length() == 0) return true;
 
-            char[] chars1 = s.toCharArray();
-            char[] chars2 = t.toCharArray();
-
-            int[][] dp = new int[m + 1][n + 1];
-
-            for (int i = 1; i <= m; i++) {
-                for (int j = 1; j <= n; j++) {
-                    if (chars1[i - 1] == chars2[j - 1]) {
-                        dp[i][j] = dp[i - 1][j - 1] + 1;
-                    } else {
-                        dp[i][j] = dp[i][j - 1];
-                    }
+            for (int i = 0, j = 0; j < t.length(); j++) {
+                if (s.charAt(i) == t.charAt(j)) {
+                    i++;
+                    if (i == s.length()) return true;
                 }
             }
 
-            return dp[m][n] == m;
+            return false;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
