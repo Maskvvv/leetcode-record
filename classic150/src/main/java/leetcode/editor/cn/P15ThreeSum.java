@@ -74,6 +74,7 @@ public class P15ThreeSum {
 
 
             for (int i = 0; i < nums.length - 2; i++) {
+                if (nums[i] > 0) break;
 
                 if (i > 0 && nums[i] == nums[i - 1]) continue;
 
@@ -81,10 +82,6 @@ public class P15ThreeSum {
                 int l = i + 1, r = nums.length - 1;
 
                 while (l < r) {
-                    if (l > i + 1 && nums[l] == nums[l - 1]) {
-                        l++;
-                        continue;
-                    }
 
                     int sum = nums[l] + nums[r];
                     if (sum < target) {
@@ -93,7 +90,12 @@ public class P15ThreeSum {
                         r--;
                     } else {
                         res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+
+                        while (l < r && nums[l] == nums[l + 1]) l++;
+                        while (l < r && nums[r] == nums[r - 1]) r--;
+
                         l++;
+                        r--;
                     }
                 }
             }
