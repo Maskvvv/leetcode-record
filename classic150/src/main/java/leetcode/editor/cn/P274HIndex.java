@@ -33,8 +33,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 计数排序 排序 👍 450 👎 0
 
-import java.util.Arrays;
-
 //Java：274. H 指数
 public class P274HIndex {
     public static void main(String[] args) {
@@ -45,18 +43,31 @@ public class P274HIndex {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int hIndex(int[] citations) {
+            int start = 0;
+            int end = citations.length;
 
-            Arrays.sort(citations);
-
-            int h = 0;
-            int i = citations.length - 1;
-
-            while (i >= 0 && citations[i] >= 0) {
-                h++;
-                i--;
+            while (start < end) {
+                int mid = start + end + 1 >> 1;
+                if (check(citations, mid)) {
+                    start = mid;
+                } else {
+                    end = mid - 1;
+                }
             }
 
-            return h;
+            return start;
+        }
+
+        public boolean check(int[] citations, int h) {
+            int res = 0;
+
+            for (int citation : citations) {
+                if (citation >= h) {
+                    res++;
+                }
+            }
+
+            return res >= h;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
