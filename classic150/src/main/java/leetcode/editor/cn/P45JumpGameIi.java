@@ -42,8 +42,6 @@ package leetcode.editor.cn;
 
 import leetcode.editor.cn.utils.ArrayUtils;
 
-import java.util.Arrays;
-
 //Java：45. 跳跃游戏 II
 public class P45JumpGameIi {
     public static void main(String[] args) {
@@ -56,19 +54,20 @@ public class P45JumpGameIi {
     class Solution {
         public int jump(int[] nums) {
 
-            int[] dp = new int[nums.length];
-            Arrays.fill(dp, Integer.MAX_VALUE);
-            dp[0] = 0;
+            int res = 0;
+            int end = 0;
+            int nextEnd = 0;
 
             for (int i = 0; i < nums.length - 1; i++) {
-                if (nums[i] == 0) continue;
+                nextEnd = Math.max(nextEnd, nums[i] + i);
 
-                for (int j = i + 1; j <= i + nums[i] && j < nums.length; j++) {
-                    dp[j] = Math.min(dp[i] + 1, dp[j]);
+                if (end == i) {
+                    res++;
+                    end = nextEnd;
                 }
             }
 
-            return dp[nums.length - 1];
+            return res;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
