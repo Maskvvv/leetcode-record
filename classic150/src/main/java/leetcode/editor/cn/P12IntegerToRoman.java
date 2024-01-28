@@ -84,27 +84,17 @@ public class P12IntegerToRoman {
             int[] nums = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
             String[] romans = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
-
             StringBuilder sb = new StringBuilder();
-            while (num != 0) {
 
-                for (int i = 0; i < nums.length; i++) {
-                    int count = num / nums[i];
-                    if (count == 0) continue;
-
-                    for (int j = 0; j < count; j++) {
-                        sb.append(romans[i]);
-                    }
-
-                    num = num % nums[i];
-
-                    break;
+            for (int i = 0; i < nums.length; i++) {
+                while (num >= nums[i]) {
+                    sb.append(romans[i]);
+                    num -= nums[i];
                 }
 
             }
 
             return sb.toString();
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
