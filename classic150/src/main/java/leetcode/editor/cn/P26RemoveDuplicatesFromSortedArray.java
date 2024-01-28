@@ -70,17 +70,20 @@ public class P26RemoveDuplicatesFromSortedArray {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int removeDuplicates(int[] nums) {
-            int n = nums.length;
-            int slow = 0;
-            int fast = 0;
-            while (fast < n) {
-                if (nums[fast] != nums[slow]) {
-                    nums[++slow] = nums[fast];
+            return doRemoveDuplicates(nums, 1);
+        }
+
+        public int doRemoveDuplicates(int[] nums, int k) {
+            int j = 0;
+
+            for (int i = 0; i < nums.length; i++) {
+                if (j < k || nums[i] != nums[j - k]) {
+                    nums[j] = nums[i];
+                    j++;
                 }
-                fast++;
             }
 
-            return slow + 1;
+            return j;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
