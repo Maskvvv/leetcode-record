@@ -32,9 +32,6 @@ package leetcode.editor.cn;
 //
 // Related Topics 栈 数组 双指针 动态规划 单调栈 👍 4987 👎 0
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 //Java：42. 接雨水
 public class P42TrappingRainWater {
     public static void main(String[] args) {
@@ -46,27 +43,28 @@ public class P42TrappingRainWater {
     class Solution {
         public int trap(int[] height) {
             int res = 0;
-            Deque<Integer> stack = new ArrayDeque<>();
+            int n = height.length;
 
+            int[] prefix = new int[n];
+            int[] suffix = new int[n];
 
-            for (int i = 0; i < height.length; i++) {
+            for (int i = 1; i < n; i++) {
+                prefix[i] = Math.max(height[i - 1], prefix[i - 1]);
 
-                while (!stack.isEmpty() && height[i] > height[stack.peekLast()]) {
-                    int midIndex = stack.pollLast();
-                    if (stack.isEmpty()) break;
+            }
 
-                    int rightIndex = i;
+            for (int i = n - 2; i >= 0; i--) {
+                suffix[i] = Math.max(suffix[i + 1], height[i + 1]);
+            }
 
-                    int leftIndex = stack.peekLast();
+            for (int i = 1; i < height.length - 1; i++) {
+                int min = Math.min(prefix[i], suffix[i]);
+                if (min <= height[i]) continue;
 
-                    res += (rightIndex - leftIndex - 1) * (Math.min(height[leftIndex], height[rightIndex]) - height[midIndex]);
-                }
-
-                stack.offerLast(i);
+                res += min - height[i];
             }
 
             return res;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
