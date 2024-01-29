@@ -56,23 +56,18 @@ public class P58LengthOfLastWord {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLastWord(String s) {
+
+            int index = s.length() - 1;
+
+            while (s.charAt(index) == ' ') {
+                index--;
+            }
+
             int lastLength = 0;
 
-            for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == ' ') continue;
-
-                int curLength = 0;
-                int j = i;
-                for (; j < s.length(); j++) {
-                    if (s.charAt(j) == ' ') break;
-
-                    curLength++;
-                }
-
-                if (curLength > 0){
-                    lastLength = curLength;
-                }
-                i = j;
+            while (index >= 0 && s.charAt(index) != ' ') {
+                index--;
+                lastLength++;
             }
 
             return lastLength;
