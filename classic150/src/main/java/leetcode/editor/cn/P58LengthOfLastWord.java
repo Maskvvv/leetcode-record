@@ -56,11 +56,26 @@ public class P58LengthOfLastWord {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int lengthOfLastWord(String s) {
-            String[] split = s.split("\\s+");
+            int lastLength = 0;
 
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == ' ') continue;
 
-            return split[split.length - 1].length();
+                int curLength = 0;
+                int j = i;
+                for (; j < s.length(); j++) {
+                    if (s.charAt(j) == ' ') break;
 
+                    curLength++;
+                }
+
+                if (curLength > 0){
+                    lastLength = curLength;
+                }
+                i = j;
+            }
+
+            return lastLength;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
