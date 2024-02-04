@@ -63,31 +63,20 @@ public class P151ReverseWordsInAString {
         public String reverseWords(String s) {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < s.length(); i++) {
+            for (int i = s.length() - 1; i >= 0; i--) {
                 if (s.charAt(i) == ' ') {
                     continue;
                 }
 
-                int left = i;
-                int right = left;
+                int j = i;
 
                 StringBuilder reversesb = new StringBuilder();
-                while (right < s.length() && s.charAt(right) != ' ') {
-                    reversesb.insert(0, s.charAt(right++));
+                while (j >= 0 && s.charAt(j) != ' ') {
+                    reversesb.insert(0, s.charAt(j--));
                 }
 
-                sb.append(' ').append(reversesb);
-
-                i = right;
-            }
-
-            int left = 0, right = sb.length() - 1;
-            while (left < right) {
-                char temp = sb.charAt(left);
-                sb.setCharAt(left, sb.charAt(right));
-                sb.setCharAt(right, temp);
-                left++;
-                right--;
+                sb.append(reversesb).append(' ');
+                i = j;
             }
 
             return sb.substring(0, sb.length() - 1);
