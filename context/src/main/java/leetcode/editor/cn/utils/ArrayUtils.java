@@ -21,6 +21,7 @@ public class ArrayUtils {
 
         return Arrays.stream(array).mapToInt(Integer::valueOf).toArray();
     }
+
     public static String[] generateStringArray(String stringArray) {
         Pattern pattern = Pattern.compile("\"(\\w+?)\"");
         Matcher matcher = pattern.matcher(stringArray);
@@ -32,8 +33,26 @@ public class ArrayUtils {
         return list.toArray(new String[0]);
     }
 
-    public static <T> List<T>  generateArray(String str) {
-        List<T> res= new ArrayList<>();
+    public static char[] generateCharArray(String stringArray) {
+        Pattern pattern = Pattern.compile("\"(\\w+?)\"");
+        Matcher matcher = pattern.matcher(stringArray);
+
+        List<String> list = new ArrayList<>();
+        while (matcher.find()) {
+            list.add(matcher.group(1));
+        }
+
+        char[] chars = new char[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+
+            chars[i] = list.get(i).charAt(0);
+        }
+
+        return chars;
+    }
+
+    public static <T> List<T> generateArray(String str) {
+        List<T> res = new ArrayList<>();
         Matcher matcher = Pattern.compile("(\\w+)").matcher(str);
         while (matcher.find()) {
             res.add((T) matcher.group(1));
@@ -47,7 +66,7 @@ public class ArrayUtils {
     }
 
 
-    private static void print (List<Integer> num) {
+    private static void print(List<Integer> num) {
         System.out.println(num);
     }
 
