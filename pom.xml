@@ -28,6 +28,7 @@
         <module>context</module>
         <module>hot100</module>
         <module>classic150</module>
+        <module>leetcode75</module>
     </modules>
 
     <dependencies>
