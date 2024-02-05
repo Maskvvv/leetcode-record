@@ -57,7 +57,6 @@ public class P1143LongestCommonSubsequence {
     class Solution {
         public int longestCommonSubsequence(String text1, String text2) {
             int m = text1.length(), n = text2.length();
-            int res = 0;
 
             int[][] dp = new int[m + 1][n + 1];
 
@@ -71,11 +70,10 @@ public class P1143LongestCommonSubsequence {
                         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                     }
 
-                    res = Math.max(res, dp[i][j]);
                 }
             }
 
-            return res;
+            return dp[m][n];
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
