@@ -59,8 +59,7 @@ package leetcode.editor.cn;
 //
 // Related Topics 哈希表 字符串 计数 排序 👍 133 👎 0
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 //Java：1657. 确定两个字符串是否接近
 public class P1657DetermineIfTwoStringsAreClose {
@@ -78,46 +77,29 @@ public class P1657DetermineIfTwoStringsAreClose {
             char[] chars1 = word1.toCharArray();
             char[] chars2 = word2.toCharArray();
 
-            Map<Character, Integer> map1 = new HashMap<>();
-            for (int i = 0; i < word1.length(); i++) {
-                map1.put(chars1[i], map1.getOrDefault(chars1[i], 0) + 1);
+            int[] count1 = new int[26];
+            int[] count2 = new int[26];
+
+            for (char c : chars1) {
+                count1[c - 'a'] += 1;
             }
 
-            Map<Character, Integer> map2 = new HashMap<>();
-            for (int i = 0; i < word2.length(); i++) {
-                if (!map1.containsKey(chars2[i])) {
-                    return false;
-                }
-                map2.put(chars2[i], map2.getOrDefault(chars2[i], 0) + 1);
+            for (char c : chars2) {
+                count2[c - 'a'] += 1;
             }
 
-            if (map2.size() != map1.size()) {
-                return false;
-            }
 
-            Map<Integer, Integer> countMap1 = new HashMap<>();
-            Map<Integer, Integer> countMap2 = new HashMap<>();
-            for (Integer value : map1.values()) {
-                countMap1.put(value, countMap1.getOrDefault(value, 0) + 1);
-            }
+            for (int i = 0; i < 26; i++) {
 
-            for (Integer value : map2.values()) {
-                countMap2.put(value, countMap2.getOrDefault(value, 0) + 1);
-            }
-
-            if (countMap1.size() != countMap2.size()) {
-                return false;
-            }
-
-            for (Map.Entry<Integer, Integer> entry : countMap1.entrySet()) {
-                Integer key = entry.getKey();
-                if (!countMap2.containsKey(key) || !countMap2.get(key).equals(entry.getValue())) {
+                if ((count1[i] == 0) ^ (count2[i] == 0)) {
                     return false;
                 }
             }
 
+            Arrays.sort(count1);
+            Arrays.sort(count2);
 
-            return true;
+            return Arrays.equals(count1, count2);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
