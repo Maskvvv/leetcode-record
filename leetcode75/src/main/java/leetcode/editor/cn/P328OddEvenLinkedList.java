@@ -59,33 +59,30 @@ public class P328OddEvenLinkedList {
      */
     class Solution {
         public ListNode oddEvenList(ListNode head) {
-            if (head == null || head.next == null) return head;
+            ListNode oddHead = new ListNode();
+            ListNode oddTail = oddHead;
+            ListNode evenHead = new ListNode();
+            ListNode evenTail = evenHead;
 
-            ListNode p1 = head;
-
-            ListNode pre = head;
-            ListNode cur = head.next;
-
-            int i = 2;
-
-            while (cur != null) {
-                ListNode next = cur.next;
-                if (i++ % 2 == 1) {
-                    pre.next = cur.next;
-
-                    cur.next = p1.next;
-                    p1.next = cur;
-
-                    p1 = p1.next;
+            boolean isOdd = true;
+            while (head != null) {
+                if (isOdd) {
+                    oddTail.next = head;
+                    oddTail = oddTail.next;
                 } else {
-                    pre = pre.next;
+                    evenTail.next = head;
+                    evenTail = evenTail.next;
                 }
 
-                cur = next;
+                head = head.next;
+                isOdd = !isOdd;
             }
 
-            return head;
+            oddTail.next = evenHead.next;
+            evenTail.next = null;
 
+
+            return oddHead.next;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
