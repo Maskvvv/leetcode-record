@@ -81,28 +81,17 @@ public class P2095DeleteTheMiddleNodeOfALinkedList {
         public ListNode deleteMiddle(ListNode head) {
             ListNode dummyHead = new ListNode();
             dummyHead.next = head;
-            int count = 0;
 
-            ListNode cur = head;
-
-            while (cur != null) {
-                count++;
-                cur = cur.next;
+            ListNode slow = dummyHead;
+            ListNode fast = dummyHead;
+            while (fast != null && fast.next != null && fast.next.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
             }
 
-            int mid = count / 2;
-
-            ListNode pre = dummyHead;
-            cur = head;
-            for (int i = 0; i < mid; i++) {
-                pre = cur;
-                cur = cur.next;
-            }
-
-            pre.next = cur.next;
+            slow.next = slow.next.next;
 
             return dummyHead.next;
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
