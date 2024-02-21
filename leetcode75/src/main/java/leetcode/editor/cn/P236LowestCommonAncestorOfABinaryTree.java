@@ -64,34 +64,29 @@ public class P236LowestCommonAncestorOfABinaryTree {
      */
     class Solution {
 
-        TreeNode res;
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-            dfs(root, p, q);
-
-            return res;
-
+            return dfs(root, p, q);
         }
 
-        public boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
-            if (root == null || res != null) return false;
+        public TreeNode dfs(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) return null;
 
-            boolean left = dfs(root.left, p, q);
-            boolean right = dfs(root.right, p, q);
+            TreeNode left = dfs(root.left, p, q);
+            TreeNode right = dfs(root.right, p, q);
 
-            boolean mid = false;
             if (root == p || root == q) {
-                mid = true;
+                return root;
             }
 
-            if (mid && (left || right)) {
-                res = root;
+            if (left != null && right != null) {
+                return root;
             }
 
-            if (left && right) {
-                res = root;
+            if (left != null) {
+                return left;
             }
 
-            return mid || left || right;
+            return right;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
