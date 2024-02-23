@@ -61,26 +61,27 @@ public class P547NumberOfProvinces {
             visited = new boolean[isConnected.length];
 
             for (int i = 0; i < isConnected.length; i++) {
-                dfs(isConnected, i, -1);
+
+                if (!visited[i]) {
+                    dfs(isConnected, i);
+                    count++;
+                }
             }
 
             return count;
         }
 
 
-        public void dfs(int[][] isConnected, int i, int parent) {
+        public void dfs(int[][] isConnected, int i) {
             if (visited[i]) return;
 
             visited[i] = true;
-            if (parent < 0) count++;
-
 
             for (int j = 0; j < isConnected[i].length; j++) {
                 if (isConnected[i][j] == 0) continue;
-                dfs(isConnected, j, i);
+                dfs(isConnected, j);
             }
         }
-
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
