@@ -31,6 +31,8 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 分治 快速选择 排序 堆（优先队列） 👍 2412 👎 0
 
+import leetcode.editor.cn.utils.ArrayUtils;
+
 import java.util.Random;
 
 //Java：215. 数组中的第K个最大元素
@@ -38,23 +40,25 @@ public class P215KthLargestElementInAnArray {
     public static void main(String[] args) {
         Solution solution = new P215KthLargestElementInAnArray().new Solution();
         // TO TEST
+
+        System.out.println(solution.findKthLargest(ArrayUtils.generateNumArray("[3,2,1,5,6,4]"), 2));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        private Random random = new Random();
+        private final Random random = new Random();
         public int findKthLargest(int[] nums, int k) {
             int n = nums.length;
             int target = n - k;
 
             int left = 0;
-            int right = n - 1;
+            int right = n;
 
             while (true) {
                 int pivot = partition(nums, left, right);
                 if (pivot > target) {
-                    right = pivot - 1;
+                    right = pivot;
                 } else if (pivot < target) {
                     left = pivot + 1;
                 } else {
@@ -64,30 +68,31 @@ public class P215KthLargestElementInAnArray {
         }
 
         public int partition(int[] nums, int left, int right) {
-            int randomIndex = left + random.nextInt(right - left + 1);
+            int randomIndex = left + random.nextInt(right - left);
             swap(nums, randomIndex, left);
 
             int l = left + 1, r = right;
+            int pivot = nums[left];
 
-            while (true) {
-                while (l <= r && nums[l] < nums[left]) {
+            while (l < r) {
+                while (l < r && nums[l] < pivot) {
                     l++;
                 }
 
-                while (l <= r && nums[r] > nums[left]) {
+                while (l < r && nums[r - 1] > pivot) {
                     r--;
                 }
 
                 if (l >= r) break;
 
-                swap(nums, l, r);
+                swap(nums, l, r - 1);
                 l++;
                 r--;
             }
 
-            swap(nums, left, r);
+            swap(nums, left, l - 1);
 
-            return r;
+            return l - 1;
         }
 
         private void swap(int[] nums, int index1, int index2) {
