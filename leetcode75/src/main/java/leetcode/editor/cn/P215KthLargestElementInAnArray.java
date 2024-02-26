@@ -31,7 +31,7 @@ package leetcode.editor.cn;
 //
 // Related Topics 数组 分治 快速选择 排序 堆（优先队列） 👍 2412 👎 0
 
-import java.util.PriorityQueue;
+import java.util.Random;
 
 //Java：215. 数组中的第K个最大元素
 public class P215KthLargestElementInAnArray {
@@ -42,22 +42,60 @@ public class P215KthLargestElementInAnArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        private Random random = new Random();
         public int findKthLargest(int[] nums, int k) {
-            PriorityQueue<Integer> queue = new PriorityQueue<>();
+            int n = nums.length;
+            int target = n - k;
 
-            for (int i = 0; i < k; i++) {
-                queue.offer(nums[i]);
-            }
+            int left = 0;
+            int right = n - 1;
 
-            for (int i = k; i < nums.length; i++) {
-                if (nums[i] > queue.peek()) {
-                    queue.poll();
-                    queue.offer(nums[i]);
+            while (true) {
+                int pivot = partition(nums, left, right);
+                if (pivot > target) {
+                    right = pivot - 1;
+                } else if (pivot < target) {
+                    left = pivot + 1;
+                } else {
+                    return nums[pivot];
                 }
             }
-
-            return queue.peek();
         }
+
+        public int partition(int[] nums, int left, int right) {
+            int randomIndex = left + random.nextInt(right - left + 1);
+            swap(nums, randomIndex, left);
+
+            int l = left + 1, r = right;
+
+            while (true) {
+                while (l <= r && nums[l] < nums[left]) {
+                    l++;
+                }
+
+                while (l <= r && nums[r] > nums[left]) {
+                    r--;
+                }
+
+                if (l >= r) break;
+
+                swap(nums, l, r);
+                l++;
+                r--;
+            }
+
+            swap(nums, left, r);
+
+            return r;
+        }
+
+        private void swap(int[] nums, int index1, int index2) {
+            int temp = nums[index1];
+            nums[index1] = nums[index2];
+            nums[index2] = temp;
+        }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
