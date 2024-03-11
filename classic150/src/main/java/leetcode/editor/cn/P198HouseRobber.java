@@ -45,7 +45,9 @@ public class P198HouseRobber {
     class Solution {
         public int rob(int[] nums) {
             int n = nums.length;
-            if (n < 2) return nums[0];
+            if (n == 2) {
+                return nums[1];
+            }
 
             int[] dp = new int[n];
             dp[0] = nums[0];
@@ -57,7 +59,6 @@ public class P198HouseRobber {
             }
 
             return dp[n - 1];
-
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
